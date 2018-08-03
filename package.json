@@ -1,0 +1,36 @@
+{
+  "name": "ponto",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "~1.0.0",
+    "bootstrap": "4.0.0",
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^2.0.1",
+    "cookie-parser": "~1.0.1",
+    "cpf_cnpj": "^0.2.0",
+    "debug": "~0.7.4",
+    "dotenv-safe": "^6.0.0",
+    "ejs": "~0.8.5",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "jquery": "^3.3.1",
+    "js-alert": "^1.0.4",
+    "mongodb": "^3.1.0-beta4",
+    "morgan": "~1.0.0",
+    "passport": "^0.2.2",
+    "passport-local": "^1.0.0",
+    "popper.js": "^1.14.3",
+    "static-favicon": "~1.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: test specified\" && exit 1",
+    "start": "nodemon ./bin/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

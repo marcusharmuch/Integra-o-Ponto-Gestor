@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="author" content="Kodinger">
+  <title>API Ponto</title>
+  <link rel="stylesheet" type="text/css" href="/login//bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/login/css/my-login.css">
+</head>
+
+<body class="my-login-page">
+  <center>
+    <h1>Bem Vindo a APi Ponto.</h1>
+    <form action="/novo" method="POST">
+      <p>Informe o cpf do Funcionário que deseja incluir:</p>
+      <br>
+      <p>CPF:
+        <input type="number" name="cpf" />
+      </p>
+      <p>
+        <input type="submit" value="Inserir Funcionário" />
+      </p>
+      <p>
+        <button type="submit" value="" />Inserir TODOS</button>
+      </p>
+    </form>
+  </center>
+
+  <!-- jQuery (necessário para os plugins Javascript do Bootstrap) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <!-- Inclua todos os plugins compilados (abaixo), ou inclua um por um quando for necessário -->
+  <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>

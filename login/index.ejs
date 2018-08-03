@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="author" content="Marcus Paulo de Souza Harmuch">
+	<title>API Ponto</title>
+	<link rel="stylesheet" type="text/css" href="/login//bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/login/css/my-login.css">
+	<script src="https://npmcdn.com/js-alert/dist/jsalert.min.js"></script>
+	<script src="/login/js/jquery.min.js"></script>
+	<script src="/login/bootstrap/js/bootstrap-auto-dismiss-alert.js"></script>
+
+
+</head>
+
+<body class="my-login-page">
+	<section class="h-100">
+		<div class="container h-100">
+			<div class="row justify-content-md-center h-100">
+				<div class="card-wrapper">
+					<div class="brand">
+						<img src="/login/img/logo.png">
+					</div>
+					<div class="card fat">
+						<div class="card-body">
+							<h4 class="card-title">Login</h4>
+							<% if ( message ) 
+									{ %>
+								<center>
+									<div class="alert alert-danger">
+										<strong>
+											<%=message %>
+										</strong>
+									</div>
+								</center>
+								<% } %>
+									<form action="/" method="POST">
+
+										<div class="form-group">
+											<label for="email">Usuário ou E-Mail</label>
+
+											<input id="email" type="text" class="form-control" name="username" value="" required autofocus>
+										</div>
+										<label for="password">Senha</label>
+
+										<input id="password" type="password" class="form-control" name="password" required data-eye>
+
+										<div class="form-group">
+											<a href="/forgot" class="float-right">
+												Esqueceu a Senha?
+											</a>
+
+										</div>
+
+										<div class="form-group">
+											<label>
+												<input type="checkbox" name="remember"> Lembre-me
+											</label>
+										</div>
+
+										<div class="form-group no-margin">
+											<button type="submit" class="btn btn-primary btn-block" value="login">
+												Login
+											</button>
+										</div>
+										<div class="margin-top20 text-center">
+											Não possui cadastro?
+											<a href="/register">Novo Usuário</a>
+										</div>
+									</form>
+						</div>
+					</div>
+					<div class="footer">
+						Todos os Direitos Reservados &copy; Publitech Softwares e Serviços 2018
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script src="/login/js/jquery.min.js"></script>
+	<script src="/login/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/login/js/my-login.js"></script>
+</body>
+
+</html>

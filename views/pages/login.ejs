@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+<head>
+    <title>Login com Node.js e Passport</title>
+</head>
+<body>
+    <div>
+        <form action="" method="post">
+            <input type="text" name="username"  placeholder="Usuario" required>
+            <input type="password" name="password" placeholder="Senha" required>
+            <% if (message) { %>
+                <div id="error">
+                    <p>  <%= message %></p>
+                </div>
+            <% } %>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+</body>
+</html>
