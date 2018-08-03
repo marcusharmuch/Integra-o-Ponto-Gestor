@@ -1,6 +1,8 @@
 /**
  * @author <marcus@publitechsistemas.com.br>
  */
+var moment = require('moment');
+moment().format();
 const express = require('express');
 const app = express();
 const router = express.Router();
