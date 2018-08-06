@@ -42,12 +42,12 @@ Inspired by https://dribbble.com/shots/2004657-Alarm-Clock-concept
     dot.attr("cx", pos.x);
     dot.attr("cy", pos.y);
     return $('#time').text(moment().format('H:mm'));
-  };
+  };  
+  //moment.locale('pt-br');         
   
-  $('#day').text(moment().format('dddd'))
-  
+  $('#day').text(moment().format('dddd')); 
   $('#date').text(moment().format('MMMM D'));
-
+  
   setCaptions();
 
   setInterval(function() {

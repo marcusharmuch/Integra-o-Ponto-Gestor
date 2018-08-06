@@ -40,7 +40,7 @@ setCaptions = ->
 	
   $('.clockDot.hour').attr 'd', describeArc(500, 240, 150, hourArc - 3, hourArc)
   $('.clockDot.minute').attr 'd', describeArc(500, 240, 170, minArc - 1, minArc)
-	
+
   dot = $(".clockDot.hour")
   pos = polarToCartesian 500, 240, 150, hourArc
   dot.attr "cx", pos.x

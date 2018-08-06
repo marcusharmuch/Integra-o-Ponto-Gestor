@@ -50,8 +50,11 @@
         $("#teste").remove();
       });
     });
+    $(document).ready(function(){
+
+});
   </script>
-  <script src="moment.js"></script>
+  <script src="/node_modules/moment/moment.js"></script>
 	<script>
          moment().format();
          moment.locale('pt-BR');
@@ -66,6 +69,7 @@
 
 <body>
   <!-- Side Navbar -->
+  
   <nav class="side-navbar">
     <div class="side-navbar-wrapper">
       <!-- Sidebar Header    -->
@@ -280,7 +284,7 @@
       <section class="dashboard-header section-padding">
         <div class="container-fluid">
           <div class="row d-flex align-items-md-stretch">
-            <!-- Pie Chart-->
+            <!-- Pie Chart
             <div class="col-lg-3 col-md-6">
               <div class="card project-progress">
                 <h2 class="display h4">Progresso do Projeto</h2>
@@ -293,8 +297,8 @@
                   <canvas id="pieChart" width="300" height="300"> </canvas>
                 </div>
               </div>
-            </div>
-            <svg>
+            </div> -->
+            <svg id="teste2">
                 <defs>
                   <pattern id="dotPattern"
                            x="0" y="0" width="10" height="10"
@@ -348,7 +352,7 @@
                 <!-- Caption objects -->
                 <text id="time" class="caption timeText" x="500" y="240" stroke-width="0" text-anchor="middle" alignment-baseline="middle"  filter="url(#shadow)"></text>
                 
-                <text id="day" class="caption dayText" x="300" y="210" stroke-width="0" text-anchor="end" alignment-baseline="middle"  filter="url(#shadow)"></text>
+                <text id="day" lang="pt-BR" class="caption dayText" x="300" y="210" stroke-width="0" text-anchor="end" alignment-baseline="middle"  filter="url(#shadow)"></text>
                 <text id="date" class="caption dateText" x="300" y="250" stroke-width="0" text-anchor="end" alignment-baseline="middle" filter="url(#shadow)"></text>
               </svg>
               <script src="/views/pages/menu/relogio/js/index.js"></script>
