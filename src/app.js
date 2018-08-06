@@ -2,6 +2,7 @@
  * @author <marcus@publitechsistemas.com.br>
  */
 var moment = require('moment');
+moment().format();
 const express = require('express');
 const app = express();
 const router = express.Router();
@@ -29,10 +30,9 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }))
+moment.locale('pt-BR');
 app.use(passport.initialize());
 app.use(passport.session());
-
-moment.locale('pt-BR');
 
 
 //Conexao com MongoDb Atlas
