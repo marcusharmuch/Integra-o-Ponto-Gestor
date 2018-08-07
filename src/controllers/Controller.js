@@ -19,19 +19,21 @@ exports.get = (req, res, next) => {
 //         }
 //    })
  };
-exports.post = (function (req, res) {
+exports.post = (function (req, callback) {
     /**
      * passando valor para variavel req para testes. Será repassado pelo usuario.
      */
-    var cpf = req.body.cpf;
-    req = cpf;
+    // var cpf = req.body.cpf;
+    // req = cpf;
 
     PontoModel = require('../model/pontoModel.js');
 
     PontoModel.consultaAise(req, function (error, result) {
         if (error) {
-            //console.log(error);
-            res.send(error);
+            callback(error,null);
+            //res.render('../views/pages/menu/index', {message: error});
+                        //res.render("/login");
+            
         } else {
             //console.log('Sucesso!');
             //req = result;

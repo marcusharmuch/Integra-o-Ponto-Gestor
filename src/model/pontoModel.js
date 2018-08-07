@@ -22,7 +22,8 @@ function consultaAise(req, callback) {
     client.connect(function (error, client) {
       if (error) {
         console.log('Problema ao conectar ao Postgres. Verifique!', error);
-        callback('Problema ao conectar ao Postgres. Verifique!' + error);
+        callback('Problema ao conectar ao Postgres. Verifique!' + error,null);
+        
       } else {
         console.log('Conectado ao Postgres');
       }
