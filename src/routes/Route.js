@@ -3,7 +3,7 @@ const router = express.Router();
 const controller = require('../controllers/Controller')
 
 router.get('/', controller.get);
-router.post('/novo', controller.post);
+router.post('/', controller.post);
 router.put('/:id', controller.put);
 router.delete('/:id', controller.delete);
 module.exports = router;

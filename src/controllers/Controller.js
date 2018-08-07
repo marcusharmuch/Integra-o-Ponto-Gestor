@@ -23,15 +23,21 @@ exports.post = (function (req, res) {
     /**
      * passando valor para variavel req para testes. Será repassado pelo usuario.
      */
-    var cpf = req.body.cpf;
-    req = cpf;
+    // var cpf = req.body.cpf;
+    // req = cpf;
 
     PontoModel = require('../model/pontoModel.js');
 
     PontoModel.consultaAise(req, function (error, result) {
         if (error) {
+            console.log('Voltou do aise');
+            return;
             //console.log(error);
-            res.send(error);
+            //return (error);
+            
+            //res.render('../views/pages/menu/index', {message: error});
+                        //res.render("/login");
+            
         } else {
             //console.log('Sucesso!');
             //req = result;

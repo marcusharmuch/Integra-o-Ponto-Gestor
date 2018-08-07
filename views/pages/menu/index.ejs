@@ -46,11 +46,11 @@
   <script>
     $(function () {
       $("#inserir").click(function () {
-        $("#inserir_func").load("/forms");
-        $("#teste").remove();
+        $("#principal").remove();
+        $("#form_func").load("/forms");
       });
     });
-    </script>
+  </script>
   <!-- Tweaks for older IEs-->
   <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -59,7 +59,6 @@
 
 <body>
   <!-- Side Navbar -->
-
   <nav class="side-navbar">
     <div class="side-navbar-wrapper">
       <!-- Sidebar Header    -->
@@ -83,7 +82,7 @@
         <ul id="side-main-menu" class="side-menu list-unstyled">
           <li>
             <a href="/login" aria-expanded="false">
-              <i class="icon-home"></i>Home </a>
+              <i class="icon-home"></i>Home</a>
           </li>
           <!-- <li><a href="/views/pages/menu/forms"> <i class="icon-form"></i>Forms                             </a></li>
             <li><a href="/views/pages/menu/charts.html"> <i class="fa fa-bar-chart"></i>Charts                             </a></li>
@@ -97,11 +96,11 @@
                   <i class="icon-user"></i>Inserir</a>
               </li>
               <li>
-                <a href="#">
+                <a href="#alterar">
                   <i class="icon-user"></i>Alterar</a>
               </li>
               <li>
-                <a href="#">
+                <a href="#inserir_todos">
                   <i class="icon-user"></i>Inserir Todos</a>
               </li>
             </ul>
@@ -254,7 +253,7 @@
               <!-- Log out-->
               <li class="nav-item">
                 <a href="/logout" class="nav-link logout">
-                  <span class="d-none d-sm-inline-block">Logout</span>
+                  <span class="d-none d-sm-inline-block">Sair</span>
                   <i class="fa fa-sign-out"></i>
                 </a>
               </li>
@@ -264,15 +263,18 @@
       </nav>
     </header>
     <div class="row">
-      <div class="col-sm-10" id=inserir_func>
+      <div class="col-sm-10" id="form_func">
       </div>
     </div>
-    <div id="teste">
+    <div id="principal">
       <!-- JavaScript Includes -->
       <script src='/node_modules/moment/min/moment-with-locales.min.js'></script>
       <section class="dashboard-header section-padding">
+
         <div class="container-fluid">
           <div class="row d-flex align-items-md-stretch">
+
+
             <!-- Pie Chart
             <div class="col-lg-3 col-md-6">
               <div class="card project-progress">
@@ -288,7 +290,7 @@
               </div>
             </div> -->
             <svg>
-              <defs >
+              <defs>
                 <pattern id="dotPattern" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
                   <circle class="bgDot" cx="5" cy="5" r="2" />
                 </pattern>
@@ -304,13 +306,13 @@
                 </radialGradient>
 
                 <filter id="glow">
-                    <feGaussianBlur stdDeviation="3.0" result="coloredBlur"/>
-                    <feMerge>
-                      <feMergeNode in="coloredBlur" />
-                      <feMergeNode in="SourceGraphic" />
-                    </feMerge>
-                  </filter>
-  
+                  <feGaussianBlur stdDeviation="3.0" result="coloredBlur" />
+                  <feMerge>
+                    <feMergeNode in="coloredBlur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+
                 <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
                   <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="shadow" />
                   <feOffset dx="1" dy="1" />
@@ -345,8 +347,6 @@
             </svg>
             <script src="/views/pages/menu/relogio/js/index.js"></script>
 
-            <!-- <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-              <script src='/node_modules/moment/min/moment-with-locales.min.js'></script> -->
             <script src='http://cdnjs.cloudflare.com/ajax/libs/gsap/1.16.1/TweenMax.min.js'></script>
           </div>
 

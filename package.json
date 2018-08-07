@@ -24,7 +24,8 @@
     "passport": "^0.2.2",
     "passport-local": "^1.0.0",
     "popper.js": "^1.14.3",
-    "static-favicon": "~1.0.0"
+    "static-favicon": "~1.0.0",
+    "sweetalert2": "^7.26.10"
   },
   "devDependencies": {},
   "scripts": {
