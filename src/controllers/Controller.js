@@ -19,7 +19,7 @@ exports.get = (req, res, next) => {
 //         }
 //    })
  };
-exports.post = (function (req, res) {
+exports.post = (function (req, callback) {
     /**
      * passando valor para variavel req para testes. Será repassado pelo usuario.
      */
@@ -30,11 +30,7 @@ exports.post = (function (req, res) {
 
     PontoModel.consultaAise(req, function (error, result) {
         if (error) {
-            console.log('Voltou do aise');
-            return;
-            //console.log(error);
-            //return (error);
-            
+            callback(error,null);
             //res.render('../views/pages/menu/index', {message: error});
                         //res.render("/login");
             

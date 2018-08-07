@@ -32,6 +32,7 @@
   <script src="/views/pages/menu/vendor/jquery/jquery.js"></script>
   <script type="text/javascript" src="/views/pages/menu/vendor/jquery/jquery-1.2.6.pack.js"></script>
   <script type="text/javascript" src="/views/pages/menu/vendor/jquery/jquery.maskedinput-1.1.4.pack.js" /></script>
+  
   <script type="text/javascript">
     var $j = jQuery.noConflict();
     // Use jQuery com a variavel $j para evitar conflitos
@@ -50,6 +51,15 @@
         $("#form_func").load("/forms");
       });
     });
+  </script>
+  <script>
+    if (message) {
+      $(document).ready(function () {
+        $("#principal").remove();
+        $("#form_func").load("/forms");
+      });
+    }
+
   </script>
   <!-- Tweaks for older IEs-->
   <!--[if lt IE 9]>
@@ -266,6 +276,7 @@
       <div class="col-sm-10" id="form_func">
       </div>
     </div>
+   
     <div id="principal">
       <!-- JavaScript Includes -->
       <script src='/node_modules/moment/min/moment-with-locales.min.js'></script>
@@ -273,8 +284,20 @@
 
         <div class="container-fluid">
           <div class="row d-flex align-items-md-stretch">
+              <% if ( message ) 
+              { %>
+                <script>
+                  
+                $(document).ready(function () {
 
-
+                  $("#principal").remove();
+                  $("#form_func").load("/forms");
+                
+                });
+               
+              </script>
+            <% } %>
+          
             <!-- Pie Chart
             <div class="col-lg-3 col-md-6">
               <div class="card project-progress">
