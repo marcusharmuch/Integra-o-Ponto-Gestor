@@ -4,7 +4,6 @@ Inspired by https://dribbble.com/shots/2004657-Alarm-Clock-concept
 (function () {
   moment.locale('pt-BR');
 
-
   var describeArc, polarToCartesian, setCaptions;
 
   polarToCartesian = function (centerX, centerY, radius, angleInDegrees) {

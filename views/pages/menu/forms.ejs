@@ -12,10 +12,15 @@
   <script>
 
     $(document).ready(function (e) {
+      
       $("form[ajax=true]").submit(function (e) {
-
+        swal({
+          allowOutsideClick: false,
+          title: 'Carregando...',
+          
+        });
+        swal.showLoading();
         e.preventDefault();
-
         var form_data = $(this).serialize();
         var form_url = $(this).attr("action");
         var form_method = $(this).attr("method").toUpperCase();
@@ -24,14 +29,40 @@
           type: form_method,
           data: form_data,
           cache: false,
-          async:false,
-          error: function (xhr,status,error) {
-              swal(xhr.responseText, 'Algo deu errado! Contate o Suporte', 'error');
-              return;
+          async: true,
+          error: function (xhr, status, error) {
+            // swal({
+            //   allowOutsideClick: false,
+            //   title: 'Carregando...',
+            // }),
+            // swal.showLoading();
+            if (xhr.responseText) {
+
+              //swal.close();
+              swal({
+                type: 'error',
+                allowOutsideClick: false,
+                title: xhr.responseText,
+                text: 'Algo deu errado! Contate o suporte!',
+              })
+            }
           },
           success: function (msg) {
-              swal(msg, 'Tudo certo!', 'success')     
-           }
+            swal({
+              allowOutsideClick: false,
+              title: 'Carregando...',
+            }),
+              swal.showLoading();
+            if (msg) {
+              swal.close();
+              swal({
+                type: 'success',
+                allowOutsideClick: false,
+                title: msg,
+                text: 'Deu tudo certo!',
+              })
+            };
+          }
         });
 
       });
@@ -76,7 +107,7 @@
               <form action="/novo" method="POST" ajax="true" id="enviar">
                 <div class="form-group">
 
-                  <input type="text" class="form-control" id="cpf" name="cpf" placeholder="somente números">
+                  <input type="text" class="form-control" id="cpf" name="cpf" required placeholder="somente números">
 
                   <!-- <input type="text" id="cpf" placeholder="somente números" class="form-control"> -->
                 </div>

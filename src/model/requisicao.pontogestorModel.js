@@ -36,7 +36,7 @@ function envia_pontogestor(req, callback) {
                     console.log(listaerros);
                     console.log(listagravados);    
                     callback(null,listaerros, listagravados);
-                    return
+                    return;
                 }
             });
         }));
