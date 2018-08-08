@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="pt-BR">
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -10,8 +10,8 @@
   <script type="text/javascript" src="/views/pages/menu/vendor/jquery/jquery.maskedinput-1.1.4.pack.js" /></script>
 
   <script>
-    $(document).ready(function (e) {
 
+    $(document).ready(function (e) {
       $("form[ajax=true]").submit(function (e) {
 
         e.preventDefault();
@@ -24,9 +24,14 @@
           type: form_method,
           data: form_data,
           cache: false,
+          async:false,
+          error: function (xhr,status,error) {
+              swal(xhr.responseText, 'Algo deu errado! Contate o Suporte', 'error');
+              return;
+          },
           success: function (msg) {
-            swal(msg, 'Algo deu errado! Contato o Suporte', 'error')
-          }
+              swal(msg, 'Tudo certo!', 'success')     
+           }
         });
 
       });

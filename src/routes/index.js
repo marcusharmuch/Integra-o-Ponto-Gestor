@@ -28,14 +28,16 @@ router.post('/',
         successRedirect: '/login', failureRedirect: '?fail=true', failureFlash: true
     })
 );
-router.post('/novo', function (req, res) {
+router.post('/novo', function (req, res, next) {
     req = req.body.cpf;
     const controller = require('../controllers/Controller')
     controller.post(req, function (error, result) {
         if (error) {
-            console.log(error);
-            res.send(error);
-            // res.render('../views/pages/menu/index', { message: error });
+            
+            res.status(400).send(error);
+            //console.log(error);
+            // res.json(error);
+            //return next(error);
         }
 
     });
