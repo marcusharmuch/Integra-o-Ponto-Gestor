@@ -3,7 +3,7 @@
  */
 var moment = require('moment');
 moment().format();
-const Swal = require('sweetalert2')
+const Swal = require('sweetalert2');
 const express = require('express');
 const app = express();
 const router = express.Router();

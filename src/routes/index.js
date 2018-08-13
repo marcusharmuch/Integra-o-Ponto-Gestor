@@ -28,14 +28,21 @@ router.post('/',
         successRedirect: '/login', failureRedirect: '?fail=true', failureFlash: true
     })
 );
-router.post('/novo', function (req, res) {
-    req = req.body.cpf;
+router.post('/novo', function (req, res, next) {
+    var cpf = req.body.cpf.replace(/\D+/g, '');
+    req = cpf;
     const controller = require('../controllers/Controller')
     controller.post(req, function (error, result) {
         if (error) {
-            console.log(error);
-            res.send(error);
-            // res.render('../views/pages/menu/index', { message: error });
+
+            res.status(400).send(error);
+            return
+            //console.log(error);
+            // res.json(error);
+            //return next(error);
+        } else {
+            res.status(200).send(result);
+
         }
 
     });
@@ -64,8 +71,16 @@ router.get('/login', authenticationMiddleware(), function (req, res) {
     res.render('../views/pages/menu/index', { message: null });
 });
 router.get('/forms', authenticationMiddleware(), function (req, res) {
-    res.render('../views/pages/menu/forms', { message: null });
+    res.render('../views/pages/menu/forms');
 });
+router.get('/alterar', authenticationMiddleware(), function (req, res) {
+    res.render('../views/pages/menu/alterar');
+});
+
+router.get('/principal', authenticationMiddleware(), function (req, res) {
+    res.render('../views/pages/menu/principal');
+});
+
 router.get('/logout', function (req, res) {
     req.session.destroy(function (err) {
         if (err) {

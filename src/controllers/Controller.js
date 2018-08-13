@@ -74,13 +74,14 @@ exports.post = (function (req, callback) {
                     }
                 }
                 if (erroconexao){
-                    res.send(erroconexao);
+                    //res.send(erroconexao);
+                    callback(erroconexao,null,null);
                 }else{
                 if (listaerros) {
-                    res.send(listaerros);
+                    callback(null,listaerros,null);
                 }
                 else {
-                    res.send("Todos os funcionários foram gravados com sucessso!");
+                    callback(null,null,"Todos os funcionários foram gravados com sucessso!");
                 }
             }
             });
