@@ -33,10 +33,10 @@
   <script src="/views/pages/menu/vendor/jquery/jquery.js"></script>
   <script type="text/javascript" src="/views/pages/menu/vendor/jquery/jquery-1.2.6.pack.js"></script>
   <script type="text/javascript" src="/views/pages/menu/vendor/jquery/jquery.maskedinput-1.1.4.pack.js" /></script>
-  
-  
 
-  
+
+
+
 
   <script type="text/javascript">
     var $j = jQuery.noConflict();
@@ -51,16 +51,31 @@
     });
   </script>
   <script>
+    function debounce(fun, mil) {
+      var timer;
+      return function () {
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+          fun();
+        }, mil);
+      };
+    }
     $(function () {
-      $("#inserir").click(function () {
-        //$("#principal").remove();
-        $("#forms").load("/forms").hide().fadeIn(500);
-      });
+
+      $('#inserir').on('click', debounce(function () {
+        $("#forms").load("/forms").hide().fadeIn(250);
+      }, 250));
     });
     $(function () {
-      $("#home").click(function () {
-        //$("#forms").remove();
+      $("#alterar").on('click',debounce(function () {
+        $("#forms").load("/alterar").hide().fadeIn(250);
+      },250));
+    });
+
+    $(function () {
+      $("#home").one('click', function () {
         $("#forms").load("/principal").hide().fadeIn(800);
+        $(location).attr({ href: this.href });
       });
     });
   </script>
@@ -94,7 +109,7 @@
         <h5 class="sidenav-heading">Menu</h5>
         <ul id="side-main-menu" class="side-menu list-unstyled">
           <li>
-            <a href="#home" aria-expanded="false" id="home">
+            <a href="/login" aria-expanded="false">
               <i class="icon-home"></i>Home</a>
           </li>
           <!-- <li><a href="/views/pages/menu/forms"> <i class="icon-form"></i>Forms                             </a></li>
@@ -105,11 +120,11 @@
               <i class="icon-user"></i>Funcionários</a>
             <ul id="funcionarios" class="collapse list-unstyled ">
               <li>
-                <a href="#inserir" id=inserir>
+                <a href="#inserir" id="inserir">
                   <i class="icon-user"></i>Inserir</a>
               </li>
               <li>
-                <a href="#alterar">
+                <a href="#alterar" id="alterar">
                   <i class="icon-user"></i>Alterar</a>
               </li>
               <li>

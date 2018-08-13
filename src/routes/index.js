@@ -73,6 +73,10 @@ router.get('/login', authenticationMiddleware(), function (req, res) {
 router.get('/forms', authenticationMiddleware(), function (req, res) {
     res.render('../views/pages/menu/forms');
 });
+router.get('/alterar', authenticationMiddleware(), function (req, res) {
+    res.render('../views/pages/menu/alterar');
+});
+
 router.get('/principal', authenticationMiddleware(), function (req, res) {
     res.render('../views/pages/menu/principal');
 });
