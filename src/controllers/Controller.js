@@ -27,10 +27,11 @@ exports.post = (function (req, callback) {
     // req = cpf;
 
     PontoModel = require('../model/pontoModel.js');
-
+    
     PontoModel.consultaAise(req, function (error, result) {
         if (error) {
             callback(error,null);
+            
             //res.render('../views/pages/menu/index', {message: error});
                         //res.render("/login");
             
@@ -43,7 +44,6 @@ exports.post = (function (req, callback) {
              * somente para testar gravacao no mongo. O correto esta abaixo.
              */
             req = result;
-
             //res.send(req.length);
             RequisicaoPontoGestor = require('../model/requisicao.pontogestorModel.js');
             RequisicaoPontoGestor.requisicao_pontogestor(req, function (problem, error, result) {

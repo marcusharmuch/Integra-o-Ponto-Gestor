@@ -29,6 +29,7 @@ function requisicao_aise(req, callback) {
             AND FF.MODELOLOTACAO = LO.MODELOLOTACAO AND FF.ENTIDADE = LO.ENTIDADE LEFT OUTER JOIN AISE.RHCLASSIFICACAO CL ON LO.CLASSIFICACAO = CL.CLASSIFICACAO AND LO.ENTIDADE = CL.ENTIDADE\
             LEFT OUTER JOIN AISE.RHCLASSIFICACAO CLL ON FF.CLASSIFICACAO = CLL.CLASSIFICACAO and FF.entidade = CLL.entidade\
             left outer join AISE.entidade e on ff.entidade=e.entidade";
+            //console.log(sql);
             //         "select rp.pis pis,p.cnpj_cpf cpf, f.dataadmissao data_admissao,\
             // f.situacao as situacao,\
             // p.nome as name, f.entidade empresa_id, hf.lotacao departamento_id,\
@@ -83,6 +84,8 @@ function requisicao_aise(req, callback) {
             LO.CLASSIFICACAO = CL.CLASSIFICACAO AND LO.ENTIDADE = CL.ENTIDADE\
             LEFT OUTER JOIN AISE.RHCLASSIFICACAO CLL ON FF.CLASSIFICACAO = CLL.CLASSIFICACAO\
             and FF.entidade = CLL.entidade left outer join AISE.entidade e on ff.entidade=e.entidade";
+            callback(null, sql);
+            
             //     "select rp.pis pis,p.cnpj_cpf cpf, f.dataadmissao data_admissao,\
             // f.situacao as situacao,\
             // p.nome as name, f.entidade empresa_id, hf.lotacao departamento_id,\

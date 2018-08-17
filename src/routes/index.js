@@ -7,7 +7,7 @@ const swal = require('sweetalert2')
 var passport = require('passport');
 function authenticationMiddleware() {
     return function (req, res, next) {
-        if (req.isAuthenticated()) {
+        if (req.isAuthenticated()) {                
             return next()
         } else {
             req.flash('mensagem', 'Você não esta logado!');
@@ -31,6 +31,27 @@ router.post('/',
 router.post('/novo', function (req, res, next) {
     var cpf = req.body.cpf.replace(/\D+/g, '');
     req = cpf;
+    const controller = require('../controllers/Controller')
+    controller.post(req, function (error, result) {
+        if (error) {
+
+            res.status(400).send(error);
+            return
+            //console.log(error);
+            // res.json(error);
+            //return next(error);
+        } else {
+            res.status(200).send(result);
+
+        }
+
+    });
+    // passport.authenticate('local', {
+    //     successRedirect: '/novo', failureRedirect: '?fail=true', failureFlash: true
+    // });
+});
+router.post('/inserir_todos', function (req, res, next) {
+    req = "";
     const controller = require('../controllers/Controller')
     controller.post(req, function (error, result) {
         if (error) {
@@ -76,7 +97,9 @@ router.get('/forms', authenticationMiddleware(), function (req, res) {
 router.get('/alterar', authenticationMiddleware(), function (req, res) {
     res.render('../views/pages/menu/alterar');
 });
-
+router.get('/inserir_todos', authenticationMiddleware(), function (req, res) {
+    res.render('../views/pages/menu/inserir_todos');
+});
 router.get('/principal', authenticationMiddleware(), function (req, res) {
     res.render('../views/pages/menu/principal');
 });
