@@ -71,7 +71,12 @@
         $("#forms").load("/alterar").hide().fadeIn(250);
       },250));
     });
-
+    $(function () {
+      $("#inserir_todos").on('click',debounce(function () {
+        $("#forms").load("/inserir_todos").hide().fadeIn(250);
+      },250));
+    
+    });
     $(function () {
       $("#home").one('click', function () {
         $("#forms").load("/principal").hide().fadeIn(800);
@@ -128,7 +133,7 @@
                   <i class="icon-user"></i>Alterar</a>
               </li>
               <li>
-                <a href="#inserir_todos">
+                <a href="#inserir_todos" id="inserir_todos">
                   <i class="icon-user"></i>Inserir Todos</a>
               </li>
             </ul>
