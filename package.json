@@ -17,6 +17,7 @@
     "ejs": "~2.6.1",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
+    "heroku": "^7.9.3",
     "jquery": "^3.3.1",
     "js-alert": "^1.0.4",
     "moment": "^2.22.2",

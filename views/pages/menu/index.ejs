@@ -67,15 +67,15 @@
       }, 250));
     });
     $(function () {
-      $("#alterar").on('click',debounce(function () {
+      $("#alterar").on('click', debounce(function () {
         $("#forms").load("/alterar").hide().fadeIn(250);
-      },250));
+      }, 250));
     });
     $(function () {
-      $("#inserir_todos").on('click',debounce(function () {
+      $("#inserir_todos").on('click', debounce(function () {
         $("#forms").load("/inserir_todos").hide().fadeIn(250);
-      },250));
-    
+      }, 250));
+
     });
     $(function () {
       $("#home").one('click', function () {
@@ -131,7 +131,7 @@
               <li>
                 <a href="#alterar" id="alterar">
                   <i class="icon-user"></i>Alterar</a>
-              </li>v
+              </li>
               <li>
                 <a href="#inserir_todos" id="inserir_todos">
                   <i class="icon-user"></i>Inserir Todos</a>
@@ -200,48 +200,10 @@
                 <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                   class="nav-link">
                   <i class="fa fa-bell"></i>
-                  <span class="badge badge-warning">12</span>
+                  <span class="badge badge-warning">0</span>
                 </a>
                 <ul aria-labelledby="notifications" class="dropdown-menu">
-                  <li>
-                    <a rel="nofollow" href="#" class="dropdown-item">
-                      <div class="notification d-flex justify-content-between">
-                        <div class="notification-content">
-                          <i class="fa fa-envelope"></i>You have 6 new messages </div>
-                        <div class="notification-time">
-                          <small>4 minutes ago</small>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <a rel="nofollow" href="#" class="dropdown-item">
-                    <div class="notification d-flex justify-content-between">
-                      <div class="notification-content">
-                        <i class="fa fa-upload"></i>Server Rebooted</div>
-                      <div class="notification-time">
-                        <small>4 minutes ago</small>
-                      </div>
-                    </div>
-                  </a>
-              </li>
-              <li>
-                <a rel="nofollow" href="#" class="dropdown-item">
-                  <div class="notification d-flex justify-content-between">
-                    <div class="notification-content">
-                      <i class="fa fa-twitter"></i>You have 2 followers</div>
-                    <div class="notification-time">
-                      <small>10 minutes ago</small>
-                    </div>
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a rel="nofollow" href="#" class="dropdown-item all-notifications text-center">
-                  <strong>
-                    <i class="fa fa-bell"></i>view all notifications </strong>
-                </a>
-              </li>
-              </ul>
+                </ul>
               </li>
               <!-- Messages dropdown-->
               <li class="nav-item dropdown">
