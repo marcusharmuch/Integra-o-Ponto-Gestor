@@ -17,7 +17,6 @@
     "ejs": "~2.6.1",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
-    "heroku": "^7.9.3",
     "jquery": "^3.3.1",
     "js-alert": "^1.0.4",
     "moment": "^2.22.2",
@@ -29,10 +28,11 @@
     "static-favicon": "~1.0.0",
     "sweetalert2": "^7.26.10"
   },
+  "bin": "./bin/server.js",
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: test specified\" && exit 1",
-    "start": "nodemon ./bin/server.js"
+    "start": "node ./bin/server.js"
   },
   "keywords": [],
   "author": "",
