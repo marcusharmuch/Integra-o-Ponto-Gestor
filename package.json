@@ -33,7 +33,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: test specified\" && exit 1",
-    "start": "node ./bin/server.js"
+    "start": "nodemon ./bin/server.js"
   },
   "keywords": [],
   "author": "",

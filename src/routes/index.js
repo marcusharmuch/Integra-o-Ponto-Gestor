@@ -3,7 +3,6 @@ const express = require('express');
 const router = express.Router();
 const swal = require('sweetalert2')
 
-//var JSAlert = require("js-alert");
 var passport = require('passport');
 function authenticationMiddleware() {
     return function (req, res, next) {
