@@ -63,16 +63,19 @@
     $(function () {
 
       $('#inserir').on('click', debounce(function () {
+        $("#forms").empty();
         $("#forms").load("/forms").hide().fadeIn(250);
       }, 250));
     });
     $(function () {
       $("#alterar").on('click', debounce(function () {
+        $("#forms").empty();
         $("#forms").load("/alterar").hide().fadeIn(250);
       }, 250));
     });
     $(function () {
       $("#inserir_todos").on('click', debounce(function () {
+        $("#forms").empty();
         $("#forms").load("/inserir_todos").hide().fadeIn(250);
       }, 250));
 
