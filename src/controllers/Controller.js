@@ -25,7 +25,6 @@ exports.post = (function (req, callback) {
      */
     // var cpf = req.body.cpf;
     // req = cpf;
-
     PontoModel = require('../model/pontoModel.js');
     
     PontoModel.consultaAise(req, function (error, result) {

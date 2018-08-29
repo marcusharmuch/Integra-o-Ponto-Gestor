@@ -12,8 +12,7 @@ mongoClient.connect(process.env.MONGO_CONNECTION, function (err, conn) {
     if (err) { return console.log(err); }
     console.log("Conectado ao MongoDB Local!");
     global.db = conn.db(process.env.MONGO_DB);
-    console.log(global.db);
-
+    //console.log(global.db);
     })
     // var mongoose = require('mongoose');
     // var Schema = mongoose.Schema;

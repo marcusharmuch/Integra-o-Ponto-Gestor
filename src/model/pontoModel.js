@@ -6,7 +6,7 @@ module.exports.consultaAise = consultaAise;
 module.exports.gravaFuncionario = gravaFuncionario;
 /**
  * 
- * @param {*} req (requisiçao para consulta)
+ * @param {*} req (requisiçao para consulta, traz tb a configuração do aise)
  * @param {*} callback (retorno:error,result)
  */
 
@@ -17,7 +17,8 @@ function consultaAise(req, callback) {
   connect();
   function connect() {
     var pg = require('pg');
-    const connectionString = process.env.DATABASE_URL || 'postgres://aise@localhost:32768/cmpg';
+    console.log(req);
+    const connectionString = process.env.DATABASE_URL || req.user.aise;
     client = new pg.Client(connectionString);
     client.connect(function (error, client) {
       if (error) {
@@ -29,7 +30,7 @@ function consultaAise(req, callback) {
       }
     })
     consulta_sql = require('../model/requisicao_aiseModel.js');
-    consulta_sql.requisicao_aise(req, function (error, sql) {
+    consulta_sql.requisicao_aise(req.cpf, function (error, sql) {
       if (error) {
         console.log(error);
         callback(error, null);

@@ -29,7 +29,7 @@ router.post('/',
 );
 router.post('/novo', function (req, res, next) {
     var cpf = req.body.cpf.replace(/\D+/g, '');
-    req = cpf;
+    req.cpf = cpf;
     const controller = require('../controllers/Controller')
     controller.post(req, function (error, result) {
         if (error) {
@@ -72,7 +72,7 @@ router.post('/inserir_todos', function (req, res, next) {
 });
 
 router.get('/novo', function (req, res) {
-    console.log(req.body);
+    console.log(req);
     // const controller = require('../controllers/Controller')
     // console.log(req.body);
     // controller.post(function (req, res) {
@@ -88,6 +88,7 @@ router.get('/novo', function (req, res) {
  */
 router.get('/login', authenticationMiddleware(), function (req, res) {
     //res.render('../views/pages/index',{ message: null });
+    console.log(req.user.username);
     res.render('../views/pages/menu/index', { message: null });
 });
 router.get('/forms', authenticationMiddleware(), function (req, res) {
