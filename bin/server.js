@@ -10,7 +10,7 @@ require('dotenv-safe').load();
 const mongoClient = require("mongodb").MongoClient;
 mongoClient.connect(process.env.MONGO_CONNECTION, function (err, conn) {
     if (err) { return console.log(err); }
-    console.log("Conectado ao MongoDB Local!");
+    console.log("Conectado ao MongoDB mLab!");
     global.db = conn.db(process.env.MONGO_DB);
     //console.log(global.db);
     })

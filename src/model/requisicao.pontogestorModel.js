@@ -13,6 +13,7 @@ function requisicao_pontogestor(req, callback) {
     });
 }
 function envia_pontogestor(req, callback) {
+
     listaerros = new Array();
     listagravados = new Array();
     for (let i = 0, p = Promise.resolve(listaerros); i < req.length; i++) {//i < req.lentght
@@ -21,21 +22,21 @@ function envia_pontogestor(req, callback) {
             PontoModel = require('../model/pontoModel.js');
             var reqponto = JSON.stringify(req[i]);
             PontoModel.gravaFuncionario(reqponto, function (problem, error, result) {
-                if (problem){
-                    callback(problem,null,null);
+                if (problem) {
+                    callback(problem, null, null);
                     return;
                 }
                 if (error) {
-                    listaerros.push(nome + error+"<br>");
+                    listaerros.push(nome + error + "<br>");
                     resolve(listaerros);
                 } else {
                     listagravados.push(req[i]);
                     resolve(listagravados);
                 }
-                if (i == (req.length -1) ){//Aqui ter q ser o i = req.length
+                if (i == (req.length - 1)) {//Aqui ter q ser o i = req.length
                     console.log(listaerros);
-                    console.log(listagravados);    
-                    callback(null,listaerros, listagravados);
+                    console.log(listagravados);
+                    callback(null, listaerros, listagravados);
                     return;
                 }
             });

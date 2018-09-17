@@ -20,7 +20,7 @@ app.use(flash());
 require('./auth')(passport);
 app.use(session({
     store: new MongoStore({
-       // host: 'mongodb://marcusharmuch@ds133622.mlab.com:33622/ponto',
+       host: 'mongodb://marcusharmuch@ds133622.mlab.com:33622/ponto',
        // port: '33622',
         //db: 'session',
         url: 'mongodb://marcusharmuch:cpd4522@ds133622.mlab.com:33622/ponto',

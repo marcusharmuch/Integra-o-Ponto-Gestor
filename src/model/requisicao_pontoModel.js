@@ -10,7 +10,7 @@ module.exports.requisicao_ponto = requisicao_ponto;
 function requisicao_ponto(req, callback) {
     if (req != null) {
         var lista = new Array();
-        for (var i = 0; i < 1; i++) {
+        for (let i = 0; i < 1; i++) {
             if (i != null) {
                 var tabela = ('{"funcionario":');
                 var name = ('{"name":' + JSON.stringify(req.rows[i].name));
@@ -31,6 +31,7 @@ function requisicao_ponto(req, callback) {
             }
 
         }
+        console.log(lista);
         callback(null, lista);
     }
     else {

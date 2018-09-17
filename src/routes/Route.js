@@ -5,6 +5,6 @@ const controller = require('../controllers/Controller')
 
 router.get('/', controller.get);
 router.post('/', controller.post);
-router.put('/:id', controller.put);
+router.patch('/', controller.patch);
 router.delete('/:id', controller.delete);
 module.exports = router;

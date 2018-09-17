@@ -62,7 +62,7 @@
     }
     $(function () {
 
-      $('#inserir').on('click', debounce(function () {
+      $('#adicionar').on('click', debounce(function () {
         $("#forms").empty();
         $("#forms").load("/forms").hide().fadeIn(250);
       }, 250));
@@ -74,9 +74,9 @@
       }, 250));
     });
     $(function () {
-      $("#inserir_todos").on('click', debounce(function () {
+      $("#adicionar_todos").on('click', debounce(function () {
         $("#forms").empty();
-        $("#forms").load("/inserir_todos").hide().fadeIn(250);
+        $("#forms").load("/adicionar_todos").hide().fadeIn(250);
       }, 250));
 
     });
@@ -118,42 +118,37 @@
         <ul id="side-main-menu" class="side-menu list-unstyled">
           <li>
             <a href="/login" aria-expanded="false">
-              <i class="icon-home"></i>Home</a>
+              <i class="fa fa-home"></i>Home</a>
           </li>
-          <!-- <li><a href="/views/pages/menu/forms"> <i class="icon-form"></i>Forms                             </a></li>
-            <li><a href="/views/pages/menu/charts.html"> <i class="fa fa-bar-chart"></i>Charts                             </a></li>
-            <li><a href="tables.html"> <i class="icon-grid"></i>Tables                             </a></li> -->
           <li>
             <a href="#funcionarios" aria-expanded="false" data-toggle="collapse">
-              <i class="icon-user"></i>Funcionários</a>
+              <i class="fa fa-user" aria-hidden="true"></i> Funcionários</a>
             <ul id="funcionarios" class="collapse list-unstyled ">
               <li>
-                <a href="#inserir" id="inserir">
-                  <i class="icon-user"></i>Inserir</a>
+                <a href="#adicionar" id="adicionar">
+                  <i class="fa fa-user-plus"></i>Adicionar</a>
               </li>
               <li>
                 <a href="#alterar" id="alterar">
-                  <i class="icon-user"></i>Alterar</a>
+                  <i class="fa fa-pencil-square-o"></i>Alterar</a>
               </li>
               <li>
-                <a href="#inserir_todos" id="inserir_todos">
-                  <i class="icon-user"></i>Inserir Todos</a>
+                <a href="#adicionar_todos" id="adicionar_todos">
+                  <i class="fa fa-users"></i>Adicionar Todos</a>
               </li>
             </ul>
           </li>
           <li>
             <a href="#justificativas" aria-expanded="false" data-toggle="collapse">
-              <i class="icon-form"></i>Justificativas</a>
+              <i class="fa fa-calendar-o"></i>Justificativas</a>
             <ul id="justificativas" class="collapse list-unstyled ">
               <li>
                 <a href="#">
-                  <i class="icon-form"></i>
-                  </i>Inserir</a>
+                  <i class="fa fa-calendar-plus-o"></i>adicionar</a>
               </li>
               <li>
                 <a href="#">
-                  <i class="icon-form"></i>
-                  </i>Alterar</a>
+                  <i class="fa fa-pencil-square-o"></i>Alterar</a>
               </li>
             </ul>
           </li>
@@ -168,11 +163,11 @@
         <ul id="side-admin-menu" class="side-menu list-unstyled">
           <li>
             <a href="#">
-              <i class="icon-user"> </i>Perfil</a>
+              <i class="fa fa-user-circle-o"> </i>Perfil</a>
           </li>
           <li>
             <a href="#">
-              <i class="icon-check"> </i>Autenticação
+              <i class="fa fa-key"> </i>Autenticação
               <div class="badge badge-info">Token</div>
             </a>
           </li>
@@ -188,7 +183,7 @@
           <div class="navbar-holder d-flex align-items-center justify-content-between">
             <div class="navbar-header">
               <a id="toggle-btn" href="#" class="menu-btn">
-                <i class="icon-bars"> </i>
+                <i class="fa fa-bars"> </i>
               </a>
               <a href="/login" class="navbar-brand">
                 <div class="brand-text d-none d-md-inline-block">
@@ -198,6 +193,16 @@
               </a>
             </div>
             <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+              <li class="nav-item">
+                <a href="#" class="nav-link user">
+                  <span class="d-none d-sm-inline-block">
+                    <strong class="text-primary">
+                      <%=message %>
+                    </strong>
+                  </span>
+                  <i class="fa fa-user-circle-o" style="font-size:150%;" aria-hidden="true"></i>  
+                </a>
+              </li>
               <!-- Notifications dropdown-->
               <li class="nav-item dropdown">
                 <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -268,7 +273,7 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-sm-6">
-            <p>Publitechs Softwares e Serviços &copy; 2018</p>
+            <p>Publitech Softwares e Serviços &copy; 2018</p>
           </div>
         </div>
       </div>
@@ -279,7 +284,7 @@
   </script>
   <script src="/views/pages/menu/vendor/bootstrap/js/bootstrap.min.js"></script>
   <script src="/views/pages/menu/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
-</script>
+  </script>
   <script src="/views/pages/menu/vendor/jquery-validation/jquery.validate.min.js"></script>
   <script src="/views/pages/menu/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
   <!-- Main File-->
