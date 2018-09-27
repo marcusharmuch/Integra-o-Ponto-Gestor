@@ -41,10 +41,10 @@ router.get('/novo', function (req, res) {
 router.get('/login', authenticationMiddleware(), function (req, res) {
     //res.render('../views/pages/index',{ message: null });
     /**
-     * Variáiveis globais para paramentros do sistema, contidas no usúario mLab.
+     * Variáveis globais para paramentros do sistema, contidas no usúario mLab.
      */
     global.mongo_local = req.user.config.mongo;
-    global.aise = req.user.config.aise;
+    global.aise =req.user.config.aise;
     global.token = req.user.config.token;
     console.log(global.aise);
     res.render('../views/pages/menu/index', { message: global.usuario });
@@ -102,7 +102,6 @@ router.post('/novo', function (req, res, next) {
     controller.post(req, function (error, result) {
         if (error) {
             res.status(400).send(error);
-            next(error);
             //return(error)
             //res.status(400).json(error);
             //return next(error);

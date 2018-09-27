@@ -36,12 +36,9 @@ function consultaAise(req, callback) {
     consulta_sql = require('../model/requisicao_aiseModel.js');
     consulta_sql.requisicao_aise(req.cpf, function (error, sql) {
       if (error) {
-        console.log(error);
         callback(error, null);
       } else {
-        const query = client.query(sql, function (error, result) {
-          console.log(query);            
-          
+        const query = client.query(sql, function (error, result) {          
           if (error) {
             console.error('error running query', error);
             callback(error, null);
