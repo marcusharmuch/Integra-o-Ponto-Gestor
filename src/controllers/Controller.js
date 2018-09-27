@@ -34,18 +34,10 @@ exports.post = (function (req, callback) {
     PontoModel = require('../model/pontoModel.js');
 
     PontoModel.consultaAise(req, function (error, result) {
-        error = "teste";
-        callback(error,null);
-        return
         if (error) {
             callback(error, null);
-            //res.render('../views/pages/menu/index', {message: error});
-            //res.render("/login");
+            
         } else {
-            //console.log('Sucesso!');
-            //req = result;
-            //console.log(result);
-            //res.send(result);
             /**
              * somente para testar gravacao no mongo. O correto esta abaixo.
              */
@@ -55,10 +47,6 @@ exports.post = (function (req, callback) {
                     callback(error, null);
                 } else {
                     req = result;
-                    //req.token = token;
-                    //console.log(req);
-                    //console.log(req);
-                    //res.send(req.length);
                     RequisicaoPontoGestor = require('../model/requisicao.pontogestorModel.js');
                     RequisicaoPontoGestor.requisicao_pontogestor(req, function (problem, error, result) {
                         /** 
