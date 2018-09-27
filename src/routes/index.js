@@ -101,10 +101,9 @@ router.post('/novo', function (req, res, next) {
     const controller = require('../controllers/Controller')
     controller.post(req, function (error, result) {
         if (error) {
-
-            //res.status(00).send(error);
+            res.status(400).send(error);
+            next(error);
             //return(error)
-            //console.log(error);
             //res.status(400).json(error);
             //return next(error);
         } else {

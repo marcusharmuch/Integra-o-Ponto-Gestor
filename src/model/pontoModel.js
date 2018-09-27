@@ -40,6 +40,8 @@ function consultaAise(req, callback) {
         callback(error, null);
       } else {
         const query = client.query(sql, function (error, result) {
+          console.log(query);            
+          
           if (error) {
             console.error('error running query', error);
             callback(error, null);
