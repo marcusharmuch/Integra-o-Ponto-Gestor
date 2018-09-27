@@ -34,6 +34,9 @@ exports.post = (function (req, callback) {
     PontoModel = require('../model/pontoModel.js');
 
     PontoModel.consultaAise(req, function (error, result) {
+        error = "teste";
+        callback(error,null);
+        return
         if (error) {
             callback(error, null);
             //res.render('../views/pages/menu/index', {message: error});
