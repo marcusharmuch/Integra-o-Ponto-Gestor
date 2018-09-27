@@ -46,6 +46,7 @@ router.get('/login', authenticationMiddleware(), function (req, res) {
     global.mongo_local = req.user.config.mongo;
     global.aise = req.user.config.aise;
     global.token = req.user.config.token;
+    console.log(global.aise);
     res.render('../views/pages/menu/index', { message: global.usuario });
 });
 router.get('/forms', authenticationMiddleware(), function (req, res) {
@@ -101,8 +102,8 @@ router.post('/novo', function (req, res, next) {
     controller.post(req, function (error, result) {
         if (error) {
 
-            res.status(400).send(error);
-            return
+            res.status(500).send(error);
+            return(error)
             //console.log(error);
             // res.json(error);
             //return next(error);
