@@ -2,6 +2,7 @@
  * @author <marcus@publitechsistemas.com.br>
  */
 var moment = require('moment');
+var pg = require('pg');
 moment().format();
 const Swal = require('sweetalert2');
 const express = require('express');

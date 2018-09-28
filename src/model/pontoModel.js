@@ -23,12 +23,13 @@ function consultaAise(req, callback) {
     var pg = require('pg');
     //console.log(req.user.config.aise);
     const connectionString = process.env.DATABASE_URL || global.aise;
+    console.log(connectionString);
     client = new pg.Client(connectionString);
     client.connect(function (error, client) {
       if (error) {
         console.log('Problema ao conectar ao Postgres. Verifique!', error);
         callback('Problema ao conectar ao Postgres!' + error, null);
-
+        return
       } else {
         console.log('Conectado ao Postgres');
       }
