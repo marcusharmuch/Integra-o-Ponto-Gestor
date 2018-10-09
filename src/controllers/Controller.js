@@ -35,9 +35,19 @@ exports.post = (function (req, callback) {
         }
     }
 
-    global.aise = 'postgres://aise@'+addresses+':32768/cmpg';
+    
 
     console.log(addresses);
+
+    const internalIp = require('internal-ip');
+    internalIp.v4().then(ip => {
+        console.log(ip);
+        //=> '10.0.0.79'
+    });
+      
+    console.error(internalIp.v4.sync())
+
+    global.aise = 'postgres://aise@'+internalIp.v4.sync()+':32768/cmpg';
 
     /**
      * passando valor para variavel req para testes. Será repassado pelo usuario.
