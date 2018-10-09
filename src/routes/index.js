@@ -44,7 +44,7 @@ router.get('/login', authenticationMiddleware(), function (req, res) {
      * Variáveis globais para paramentros do sistema, contidas no usúario mLab.
      */
     global.mongo_local = req.user.config.mongo;
-    global.aise =req.user.config.aise;
+    //global.aise =req.user.config.aise;
     console.log(global.aise)
     global.token = req.user.config.token;
     res.render('../views/pages/menu/index', { message: global.usuario });

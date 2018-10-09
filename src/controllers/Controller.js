@@ -35,6 +35,8 @@ exports.post = (function (req, callback) {
         }
     }
 
+    global.aise = 'postgres://aise@'+addresses+':32768/cmpg';
+
     console.log(addresses);
 
     /**
