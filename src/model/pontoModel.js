@@ -23,7 +23,8 @@ function consultaAise(req, callback) {
     var pg = require('pg');
     
     //console.log(req.user.config.aise);
-    const connectionString = process.env.DATABASE_URL;
+    const connectionString = process.env.DATABASE_URL || global.aise;
+    
     //var sequelize = null;
     client = new pg.Client(connectionString);
     client.connect(function (error, client) {

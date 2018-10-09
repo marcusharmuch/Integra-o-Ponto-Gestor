@@ -20,7 +20,23 @@ exports.get = (req, res, next) => {
     //    })
 };
 exports.post = (function (req, callback) {
-    global.method = 'POST'; 
+    global.method = 'POST';
+
+    var os = require('os');
+
+    var interfaces = os.networkInterfaces();
+    var addresses = [];
+    for (var k in interfaces) {
+        for (var k2 in interfaces[k]) {
+            var address = interfaces[k][k2];
+            if (address.family === 'IPv4' && !address.internal) {
+                addresses.push(address.address);
+            }
+        }
+    }
+
+    console.log(addresses);
+
     /**
      * passando valor para variavel req para testes. Será repassado pelo usuario.
      */
@@ -36,7 +52,7 @@ exports.post = (function (req, callback) {
     PontoModel.consultaAise(req, function (error, result) {
         if (error) {
             callback(error, null);
-            
+
         } else {
             /**
              * somente para testar gravacao no mongo. O correto esta abaixo.
@@ -162,7 +178,7 @@ exports.patch = (function (req, callback) {
                 } else {
                     if (result == 200) {
                         PontoModel.criaRequisicao(req, function (error, result) {
-                            
+
                             if (error) {
                                 callback(error, null);
                             } else {
