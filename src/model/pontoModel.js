@@ -18,46 +18,47 @@ function consultaAise(req, callback) {
    * Obs.: Trocar essa conexao por um arquivo js.
    */
 
-  connect();
-  function connect() {
-    var pg = require('pg');
-    
-    //console.log(req.user.config.aise);
-    const connectionString = process.env.DATABASE_URL || global.aise;
-    
-    //var sequelize = null;
-    client = new pg.Client(connectionString);
-    client.connect(function (error, client) {
-      if (error) {
-        console.log('Problema ao conectar ao Postgres. Verifique!', error);
-        callback('Problema ao conectar ao Postgres!' + error, null);
-        return
-      } else {
-        console.log('Conectado ao Postgres');
-      }
-    })
+  // connect();
+  // function connect() {
+  //   var pg = require('pg');
+  //   const connectionString = process.env.DATABASE_URL || global.aise;
+  //   client = new pg.Client(connectionString);
+  //   client.connect(function (error, client) {
+  //     if (error) {
+  //       console.log('Problema ao conectar ao Postgres. Verifique!', error);
+  //       callback('Problema ao conectar ao Postgres!' + error, null);
+  //       return
+  //     } else {
+  //       console.log('Conectado ao Postgres');
+  //     }
+  //   })
+    console.log(req);
     consulta_sql = require('../model/requisicao_aiseModel.js');
-    consulta_sql.requisicao_aise(req.cpf, function (error, sql) {
+    consulta_sql.requisicao_aise(req, function (error, sql) {
       if (error) {
         callback(error, null);
+        return;
       } else {
-        const query = client.query(sql, function (error, result) {
-          if (error) {
-            console.error('error running query', error);
-            callback(error, null);
-          } else {
-            if (result.rowCount == 0 | result == null) {
-              error = "Funcionário não encontrado no Aise."
-              callback(error, null);
-            } else {
-              callback(null, result);
-            }
-          }
-        })
+        console.log("criou a requisicao para o aise");
+        callback(null,sql);
+        return;
+        // const query = client.query(sql, function (error, result) {
+        //   if (error) {
+        //     console.error('error running query', error);
+        //     callback(error, null);
+        //   } else {
+        //     if (result.rowCount == 0 | result == null) {
+        //       error = "Funcionário não encontrado no Aise."
+        //       callback(error, null);
+        //     } else {
+        //       callback(null, result);
+        //     }
+        //   }
+        // })
       }
     });
   }
-}
+//}
 function criaRequisicao(req, callback) {
   requisicao = require('../model/requisicao_pontoModel.js');
   requisicao.requisicao_ponto(req, function (error, result) {
@@ -75,7 +76,7 @@ function gravaFuncionario(req, callback) {
    * Obs. Trocar essa requisicao feita ao  ponto gestor por um arquivo js.
    */
   //global.url = 'http://api.961500-156727877.reviews.pontogestor.com/v1/funcionarios/';
-  console.log(global.url);
+  //console.log(global.url);
   var request = require('request'), default_headers, url = 'http://api.961500-156727877.reviews.pontogestor.com/v1/funcionarios/';
   default_headers = { 'X-Auth-Token': global.token, 'Content-type': 'application/json', 'Accept': 'application/json' };
   request({
@@ -90,12 +91,15 @@ function gravaFuncionario(req, callback) {
     if (!error && res.statusCode == 401) {
       console.log(res.statusMessage);
       callback("Erro ao conectar-se ao Ponto Gestor!<br> Código de erro: " + res.statusCode + " - " + res.statusMessage, null, null);
+      return
     } else if (!error && res.statusCode == 201) {
       console.log("Gravado com Sucesso no Ponto Gestor");
       callback(null, null, res.statusMessage);
+      return
     } else {
       console.log("Houve erros na gravaçao no Ponto Gestor");
       callback(null, res.body, null);
+      return
     }
   });
 };

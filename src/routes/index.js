@@ -44,8 +44,8 @@ router.get('/login', authenticationMiddleware(), function (req, res) {
      * Variáveis globais para paramentros do sistema, contidas no usúario mLab.
      */
     global.mongo_local = req.user.config.mongo;
-    //global.aise =req.user.config.aise;
-    console.log(global.aise)
+    global.aise =req.user.config.aise;
+    //console.log(global.aise)
     global.token = req.user.config.token;
     res.render('../views/pages/menu/index', { message: global.usuario });
 });
@@ -101,13 +101,10 @@ router.post('/novo', function (req, res, next) {
     const controller = require('../controllers/Controller')
     controller.post(req, function (error, result) {
         if (error) {
-            res.status(400).send(error);
-            //return(error)
-            //res.status(400).json(error);
-            //return next(error);
+            res.status(error).send(result);
         } else {
             console.log(result);
-            res.status(201).send(result);
+            res.status(500).send(result);
 
         }
 

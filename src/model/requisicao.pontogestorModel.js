@@ -29,13 +29,13 @@ function envia_pontogestor(req, callback) {
                 if (error) {
                     listaerros.push(nome + error + "<br>");
                     resolve(listaerros);
-                } else {
+                } else if (result) {
                     listagravados.push(req[i]);
                     resolve(listagravados);
                 }
                 if (i == (req.length - 1)) {//Aqui ter q ser o i = req.length
-                    console.log(listaerros);
-                    console.log(listagravados);
+                    //console.log(listaerros);
+                    //console.log(listagravados);
                     callback(null, listaerros, listagravados);
                     return;
                 }
