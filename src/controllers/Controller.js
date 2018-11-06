@@ -52,12 +52,14 @@ exports.post = (function (req, callback) {
      * caminho para o banco de dados aise e mongo local do servidor
      * parametros utilizados do usuario de cada entidade no mLab;
      */
+    //cpf: 562.107.289-87
     var request = require('request');
-    var url = 'http://localhost:3100/';
+    var url = global.url_api;
     var headers = { 'Content-type': 'application/json', 'Accept': 'application/json' };
     request({ url: url, headers: headers, method: 'GET', body: JSON.stringify(config_local) }, function (error, response, body) {
         if (error) {
             callback(500,"Erro ao conectar na aplicação local");
+            console.log(error);
             return;
         } else if (!error && response.statusCode == 500) {//conectou ao postgres pela api do servidor, mas retornou consulta em branco
             callback(response.statusCode, response.body);
@@ -158,67 +160,67 @@ exports.post = (function (req, callback) {
     //       callback(null, res.body, null);
     //     }
     //   });
-    PontoModel = require('../model/pontoModel.js');
+    // PontoModel = require('../model/pontoModel.js');
 
-    PontoModel.consultaAise(req, function (error, result) {
-        if (error) {
-            callback(error, null);
+    // PontoModel.consultaAise(req, function (error, result) {
+    //     if (error) {
+    //         callback(error, null);
 
-        } else {
-            /**
-             * somente para testar gravacao no mongo. O correto esta abaixo.
-             */
-            req = result;
-            PontoModel.criaRequisicao(req, function (error, result) {
-                if (error) {
-                    callback(error, null);
-                } else {
-                    req = result;
-                    RequisicaoPontoGestor = require('../model/requisicao.pontogestorModel.js');
-                    RequisicaoPontoGestor.requisicao_pontogestor(req, function (problem, error, result) {
-                        /** 
-                         * retorna=>
-                         * error: lista com nomes dos nao gravados que apresentaram erros no ponto gestor
-                         * result: lista com nomes dos gravados no ponto gestor
-                         */
-                        if (problem) {
+    //     } else {
+    //         /**
+    //          * somente para testar gravacao no mongo. O correto esta abaixo.
+    //          */
+    //         req = result;
+    //         PontoModel.criaRequisicao(req, function (error, result) {
+    //             if (error) {
+    //                 callback(error, null);
+    //             } else {
+    //                 req = result;
+    //                 RequisicaoPontoGestor = require('../model/requisicao.pontogestorModel.js');
+    //                 RequisicaoPontoGestor.requisicao_pontogestor(req, function (problem, error, result) {
+    //                     /** 
+    //                      * retorna=>
+    //                      * error: lista com nomes dos nao gravados que apresentaram erros no ponto gestor
+    //                      * result: lista com nomes dos gravados no ponto gestor
+    //                      */
+    //                     if (problem) {
 
-                            var erroconexao = problem;
+    //                         var erroconexao = problem;
 
-                        } else {
-                            if (error.length != 0) {
-                                var listaerros = ("Erros foram encontrados. Dados não gravados no Ponto Gestor:<br><br>" + error);
-                            }
-                            //console.log(result.length);
-                            if (result.length != 0) {
-                                var listagravados = result;
-                                //console.log(listagravados);
-                                PontoModel.gravaPontodb(listagravados, function (error, result) {
-                                    if (error) {
-                                        console.log('Problema ao gravar no Mongodb. Verifique!', error);
-                                        //callback(error, null);
-                                    } else {
-                                        console.log("Gravado com Sucesso");
-                                        //res.send("Gravado com Sucesso");
-                                    }
-                                })
-                            }
-                        }
-                        if (erroconexao) {
-                            //res.send(erroconexao);
-                            callback(erroconexao, null);
-                        } else {
-                            if (listaerros) {
+    //                     } else {
+    //                         if (error.length != 0) {
+    //                             var listaerros = ("Erros foram encontrados. Dados não gravados no Ponto Gestor:<br><br>" + error);
+    //                         }
+    //                         //console.log(result.length);
+    //                         if (result.length != 0) {
+    //                             var listagravados = result;
+    //                             //console.log(listagravados);
+    //                             PontoModel.gravaPontodb(listagravados, function (error, result) {
+    //                                 if (error) {
+    //                                     console.log('Problema ao gravar no Mongodb. Verifique!', error);
+    //                                     //callback(error, null);
+    //                                 } else {
+    //                                     console.log("Gravado com Sucesso");
+    //                                     //res.send("Gravado com Sucesso");
+    //                                 }
+    //                             })
+    //                         }
+    //                     }
+    //                     if (erroconexao) {
+    //                         //res.send(erroconexao);
+    //                         callback(erroconexao, null);
+    //                     } else {
+    //                         if (listaerros) {
 
-                                callback(listaerros, null);
-                            }
-                            else {
-                                callback(null, "Todos os funcionários foram gravados com sucessso!");
-                            }
-                        }
-                    });
-                }
-            });
+    //                             callback(listaerros, null);
+    //                         }
+    //                         else {
+    //                             callback(null, "Todos os funcionários foram gravados com sucessso!");
+    //                         }
+    //                     }
+    //                 });
+    //             }
+    //         });
             // PontoModel.gravaPontodb(listagravados, function (error, result) {
             //     if (error) {
             //         console.log('Problema ao gravar no Mongodb. Verifique!', error);
@@ -228,9 +230,9 @@ exports.post = (function (req, callback) {
             //         res.send("Gravado com Sucesso");
             //     }
             // })
-        }
+        //}
 
-    });
+    //});
 });
 //PontoModel.gravaFuncionario(req, function (error, result) {
 
