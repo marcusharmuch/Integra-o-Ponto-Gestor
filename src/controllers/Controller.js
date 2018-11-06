@@ -58,12 +58,11 @@ exports.post = (function (req, callback) {
     var headers = { 'Content-type': 'application/json', 'Accept': 'application/json' };
     request({ url: url, headers: headers, method: 'GET', body: JSON.stringify(config_local) }, function (error, response, body) {
         if (error) {
-            callback('500','Erro ao conectar na aplicação local');
+            callback(null,'Erro ao conectar na aplicação local');
             console.log(error);
             return;
         } else if (!error && response.statusCode == 500) {//conectou ao postgres pela api do servidor, mas retornou consulta em branco
-            callback('200', 'Deu Certo');
-            console.log(response.statusCode);
+            callback(response.statusCode, response.body);
             return;
         } else if (!error && response.statusCode == 200) {//conectou ao postgres pela api do servidor com OK na consulta
             req = JSON.parse(response.body);
