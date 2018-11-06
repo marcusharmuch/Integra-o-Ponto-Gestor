@@ -62,7 +62,7 @@ exports.post = (function (req, callback) {
             console.log(error);
             return;
         } else if (!error && response.statusCode == 500) {//conectou ao postgres pela api do servidor, mas retornou consulta em branco
-            callback(response.statusCode, response.body);
+            callback('200', 'Deu Certo');
             console.log(response.statusCode);
             return;
         } else if (!error && response.statusCode == 200) {//conectou ao postgres pela api do servidor com OK na consulta
