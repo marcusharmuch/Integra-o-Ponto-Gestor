@@ -73,10 +73,6 @@ exports.post = (function (req, callback) {
                     req = result;
                     RequisicaoPontoGestor = require('../model/requisicao.pontogestorModel.js');
                     RequisicaoPontoGestor.requisicao_pontogestor(req, function (problem, error, result) {
-                        console.log("*********");
-                        console.log(problem);
-                        console.log(error);
-                        console.log(result);
                         /** 
                          * retorna=>
                          * error: lista com nomes dos nao gravados que apresentaram erros no ponto gestor
@@ -96,15 +92,15 @@ exports.post = (function (req, callback) {
                                 PontoModel.gravaPontodb(listaerros, function (error, result) {
                                     if (error) {
                                         console.log('Problema ao gravar no Mongodb. Verifique!', error);
+                                        return
                                         //callback(error, null);
                                     } else {
-                                        console.log("Gravado com Sucesso");
+                                        console.log("Gravado com Sucesso no MongoDB ");
+                                        return
                                         //res.send("Gravado com Sucesso");
                                     }
                                 })
                                 for (let i = 0; i < listaerros.length; i++) {
-                                    //var erro = listaerros[0].funcionario.erro;
-                                    //console.log(JSON.stringify(erro));
                                     errosTela.push(listaerros[0].funcionario.name,JSON.stringify(listaerros[0].funcionario.erro),"<br><br>"); 
                                 }
                             }
@@ -115,8 +111,10 @@ exports.post = (function (req, callback) {
                                     if (error) {
                                         console.log('Problema ao gravar no Mongodb. Verifique!', error);
                                         //callback(error, null);
+                                        return
                                     } else {
                                         console.log("Gravado com Sucesso" + result);
+                                        return
                                         //res.send("Gravado com Sucesso");
                                     }
                                 })

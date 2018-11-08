@@ -71,7 +71,6 @@ function criaRequisicao(req, callback) {
   });
 }
 function gravaFuncionario(req, callback) {
-  console.log(global.method);
   /**
    * Obs. Trocar essa requisicao feita ao  ponto gestor por um arquivo js.
    */
@@ -137,7 +136,6 @@ function consultaFuncionario(req, callback) {
   });
 };
 function gravaPontodb(req, callback) {
-  console.log(req);
   var db = require('../db');
   var PontoSchema = new db.Schema({
     tipo: String,

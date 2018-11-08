@@ -104,8 +104,8 @@ router.post('/novo', function (req, res, next) {
         if (error) {
             res.status(error).send(result);
         } else {
-            console.log(result);
-            res.status(500).send(result);
+            //console.log(result);
+            res.status(201).send(result);
 
         }
 
