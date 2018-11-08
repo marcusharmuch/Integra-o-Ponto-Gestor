@@ -6,6 +6,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 module.exports.mongoose = mongoose;
 module.exports.Schema = Schema;
+console.log("ponto A");
 connect();
 /** 
  * Conexão com o Mongo Db Local
@@ -13,6 +14,7 @@ connect();
 function connect() {
    //var url = 'mongodb://localhost:32765/ponto';
    //console.log(process.env.MONGO_CONNECTION);
+   console.log("entrou para gravar no mongo");
    mongoose.connect(global.mongo_local,function(error, client) {
     if(error) {
          console.log('Problema ao conectar ao Mongodb. Verifique!',error);

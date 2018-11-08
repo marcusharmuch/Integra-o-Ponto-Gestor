@@ -58,7 +58,7 @@ exports.post = (function (req, callback) {
     var headers = { 'Content-type': 'application/json', 'Accept': 'application/json' };
     request({ url: url, headers: headers, method: 'GET', body: JSON.stringify(config_local) }, function (error, response, body) {
         if (error) {
-            callback(null,'Erro ao conectar na aplicação local');
+            callback(500,"Erro ao conectar na aplicação local");
             console.log(error);
             return;
         } else if (!error && response.statusCode == 500) {//conectou ao postgres pela api do servidor, mas retornou consulta em branco
@@ -88,7 +88,25 @@ exports.post = (function (req, callback) {
 
                         } else {
                             if (error.length != 0) {
-                                var listaerros = ("Erros foram encontrados. Dados não gravados no Ponto Gestor:<br><br>" + error);
+                                var errosTela = new Array();
+                                var listaerros = error;
+                                errosTela.push("Erros foram encontrados. Funcionários não gravados: <br> <br>");
+                                //var listaerros = ("Erros foram encontrados. Os dados abaixo não foram gravados no Ponto Gestor:<br><br>" + error.funcionario);        
+                                //Teste para gravação de erros, enviando lista de erros
+                                PontoModel.gravaPontodb(listaerros, function (error, result) {
+                                    if (error) {
+                                        console.log('Problema ao gravar no Mongodb. Verifique!', error);
+                                        //callback(error, null);
+                                    } else {
+                                        console.log("Gravado com Sucesso");
+                                        //res.send("Gravado com Sucesso");
+                                    }
+                                })
+                                for (let i = 0; i < listaerros.length; i++) {
+                                    //var erro = listaerros[0].funcionario.erro;
+                                    //console.log(JSON.stringify(erro));
+                                    errosTela.push(listaerros[0].funcionario.name,JSON.stringify(listaerros[0].funcionario.erro),"<br><br>"); 
+                                }
                             }
                             if (result.length != 0) {
                                 var listagravados = result;
@@ -98,7 +116,7 @@ exports.post = (function (req, callback) {
                                         console.log('Problema ao gravar no Mongodb. Verifique!', error);
                                         //callback(error, null);
                                     } else {
-                                        console.log("Gravado com Sucesso");
+                                        console.log("Gravado com Sucesso" + result);
                                         //res.send("Gravado com Sucesso");
                                     }
                                 })
@@ -110,8 +128,9 @@ exports.post = (function (req, callback) {
                             return;
                         } else {
                             if (listaerros) {
-                                console.log("chegou ate a lista erros");
-                                callback(500, listaerros);
+                                
+                                //console.log(teste.replace(',',' '));
+                                callback(500, errosTela.join(' '));
                                 //callback(listaerros, null);
                                 return;
                             }

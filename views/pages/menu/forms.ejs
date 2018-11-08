@@ -40,9 +40,10 @@
               //swal.close();
               swal({
                 type: 'error',
+                showCloseButton: true,
                 allowOutsideClick: false,
                 title: xhr.responseText,
-                text: 'Algo deu errado! Contate o suporte!',
+                text: 'Algo deu errado! Verifique os erros!',
               })
             }
           },

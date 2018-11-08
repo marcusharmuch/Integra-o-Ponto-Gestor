@@ -32,32 +32,32 @@ function consultaAise(req, callback) {
   //       console.log('Conectado ao Postgres');
   //     }
   //   })
-    console.log(req);
-    consulta_sql = require('../model/requisicao_aiseModel.js');
-    consulta_sql.requisicao_aise(req, function (error, sql) {
-      if (error) {
-        callback(error, null);
-        return;
-      } else {
-        console.log("criou a requisicao para o aise");
-        callback(null,sql);
-        return;
-        // const query = client.query(sql, function (error, result) {
-        //   if (error) {
-        //     console.error('error running query', error);
-        //     callback(error, null);
-        //   } else {
-        //     if (result.rowCount == 0 | result == null) {
-        //       error = "Funcionário não encontrado no Aise."
-        //       callback(error, null);
-        //     } else {
-        //       callback(null, result);
-        //     }
-        //   }
-        // })
-      }
-    });
-  }
+  console.log(req);
+  consulta_sql = require('../model/requisicao_aiseModel.js');
+  consulta_sql.requisicao_aise(req, function (error, sql) {
+    if (error) {
+      callback(error, null);
+      return;
+    } else {
+      console.log("criou a requisicao para o aise");
+      callback(null, sql);
+      return;
+      // const query = client.query(sql, function (error, result) {
+      //   if (error) {
+      //     console.error('error running query', error);
+      //     callback(error, null);
+      //   } else {
+      //     if (result.rowCount == 0 | result == null) {
+      //       error = "Funcionário não encontrado no Aise."
+      //       callback(error, null);
+      //     } else {
+      //       callback(null, result);
+      //     }
+      //   }
+      // })
+    }
+  });
+}
 //}
 function criaRequisicao(req, callback) {
   requisicao = require('../model/requisicao_pontoModel.js');
@@ -137,6 +137,7 @@ function consultaFuncionario(req, callback) {
   });
 };
 function gravaPontodb(req, callback) {
+  console.log(req);
   var db = require('../db');
   var PontoSchema = new db.Schema({
     tipo: String,
@@ -174,10 +175,16 @@ function gravaPontodb(req, callback) {
     var listanomes = new Array();
     for (i = 0; i < req.length; i++) {
       var name = req[i].funcionario.name;
-      listanomes.push(name);
+      var erro = req[i].funcionario.erro;
+      if (req[i].funcionario.erro) {
+        listaNaoGravados = push(name + erro );
+      } else {
+        listanomes.push(name);
+      }
     }
     instance.tipo = "Geral";
     instance.funcionario = listanomes;
+    instance.erro = listaNaoGravados;
     instance.requisicao = req;
     instance.data = local;
     instance.save(function (error) {
@@ -188,4 +195,5 @@ function gravaPontodb(req, callback) {
       }
     });
   }
+
 }
