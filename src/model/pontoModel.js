@@ -171,11 +171,12 @@ function gravaPontodb(req, callback) {
     });
   } else {
     var listanomes = new Array();
+    var listaNaoGravados = new Array();
     for (i = 0; i < req.length; i++) {
       var name = req[i].funcionario.name;
-      var erro = req[i].funcionario.erro;
       if (req[i].funcionario.erro) {
-        listaNaoGravados = push(name + erro );
+        var erro = req[i].funcionario.erro;
+        listaNaoGravados.push(name + erro );
       } else {
         listanomes.push(name);
       }

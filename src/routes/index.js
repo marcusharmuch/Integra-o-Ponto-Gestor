@@ -119,13 +119,9 @@ router.post('/adicionar_todos', function (req, res, next) {
     const controller = require('../controllers/Controller')
     controller.post(req, function (error, result) {
         if (error) {
-
-            res.status(400).send(error);
-            return
-            //console.log(error);
-            // res.json(error);
-            //return next(error);
+            res.status(error).send(result);
         } else {
+            //console.log(result);
             res.status(201).send(result);
 
         }

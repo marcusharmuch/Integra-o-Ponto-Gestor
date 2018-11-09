@@ -32,7 +32,12 @@ exports.post = (function (req, callback) {
      * Cria a variável sql para a consulta no banco postgres local.
      */
     PontoModel = require('../model/pontoModel.js');
-    var cpf = req.body.cpf.replace(/\D+/g, '');
+    //console.log(req.body);
+    if (req) {
+        var cpf = req.body.cpf.replace(/\D+/g, '');
+    }else{
+        var cpf = '';
+    }
     PontoModel.consultaAise(cpf, function (error, result) {
         if (error) {
             callback(error, null);
@@ -100,8 +105,8 @@ exports.post = (function (req, callback) {
                                         //res.send("Gravado com Sucesso");
                                     }
                                 })
-                                for (let i = 0; i < listaerros.length; i++) {
-                                    errosTela.push(listaerros[0].funcionario.name,JSON.stringify(listaerros[0].funcionario.erro),"<br><br>"); 
+                                for (let i = 0; i < error.length; i++) {
+                                    errosTela.push(listaerros[i].funcionario.name,JSON.stringify(listaerros[i].funcionario.erro),"<br><br>"); 
                                 }
                             }
                             if (result.length != 0) {
@@ -113,7 +118,7 @@ exports.post = (function (req, callback) {
                                         //callback(error, null);
                                         return
                                     } else {
-                                        console.log("Gravado com Sucesso" + result);
+                                        console.log("Gravado com Sucesso no MongoDB");
                                         return
                                         //res.send("Gravado com Sucesso");
                                     }
