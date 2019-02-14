@@ -45,9 +45,11 @@ router.get('/login', authenticationMiddleware(), function (req, res) {
      */
     global.mongo_local = req.user.config.mongo;
     global.aise = req.user.config.aise;
-    //console.log(global.aise)
+    console.log(global.aise)
     global.token = req.user.config.token;
     global.url_api = req.user.config.rota_api;
+    console.log(global.url_api);
+
     res.render('../views/pages/menu/index', { message: global.usuario });
 });
 router.get('/forms', authenticationMiddleware(), function (req, res) {
