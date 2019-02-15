@@ -75,8 +75,7 @@ function gravaFuncionario(req, callback) {
    * Obs. Trocar essa requisicao feita ao  ponto gestor por um arquivo js.
    */
   //global.url = 'http://api.961500-156727877.reviews.pontogestor.com/v1/funcionarios/';
-  //console.log(global.url);
-  var request = require('request'), default_headers, url = 'http://api.961500-156727877.reviews.pontogestor.com/v1/funcionarios/';
+  var request = require('request'), default_headers, url = global.url_gestor + "/v1/funcionarios/";
   default_headers = { 'X-Auth-Token': global.token, 'Content-type': 'application/json', 'Accept': 'application/json' };
   request({
     url: url,
@@ -109,7 +108,7 @@ function consultaFuncionario(req, callback) {
   /**
    * Obs. Trocar essa requisicao feita ao  ponto gestor por um arquivo js.
    */
-  var request = require('request'), default_headers, url = 'http://api.961500-156727877.reviews.pontogestor.com/v1/funcionarios' + consulta;
+  var request = require('request'), default_headers, url = global.url_gestor + ' /v1/funcionarios/' + consulta;
   default_headers = { 'X-Auth-Token': global.token, 'Content-type': 'application/json', 'Accept': 'application/json' };
   request({
     url: url,
@@ -176,7 +175,7 @@ function gravaPontodb(req, callback) {
       var name = req[i].funcionario.name;
       if (req[i].funcionario.erro) {
         var erro = req[i].funcionario.erro;
-        listaNaoGravados.push(name + erro );
+        listaNaoGravados.push(name + erro);
       } else {
         listanomes.push(name);
       }

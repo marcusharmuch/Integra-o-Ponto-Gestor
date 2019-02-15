@@ -49,6 +49,8 @@ router.get('/login', authenticationMiddleware(), function (req, res) {
     global.token = req.user.config.token;
     global.url_api = req.user.config.rota_api;
     console.log(global.url_api);
+    global.url_gestor = req.user.config.api_gestor;
+    console.log(global.url_gestor);
 
     res.render('../views/pages/menu/index', { message: global.usuario });
 });
