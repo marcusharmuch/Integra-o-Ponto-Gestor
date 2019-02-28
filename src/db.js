@@ -11,13 +11,16 @@ connect();
  * Conexão com o Mongo Db Local
 */
 function connect() {
-   var url = 'mongodb://localhost:32765/ponto';
-   mongoose.connect(process.env.MONGO_CONNECTION,function(error, client) {
+   //var url = 'mongodb://localhost:32765/ponto';
+   //console.log(process.env.MONGO_CONNECTION);
+   mongoose.connect(global.mongo_local, { useNewUrlParser: true }, function(error, client) {
     if(error) {
          console.log('Problema ao conectar ao Mongodb. Verifique!',error);
+         return
     }else {
-        global.db = client.db(process.env.MONGO_DB);        
+        //global.db = client.db(process.env.MONGO_DB);        
         console.log('Conectado do Mongodb Local');
+        return
         }
     })
 }

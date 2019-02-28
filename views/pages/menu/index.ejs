@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 
 <head>
   <meta charset="utf-8">
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Integração Ponto</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="all,follow">
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/1.16.1/TweenMax.min.js'></script>
   <!-- Bootstrap CSS-->
   <link rel="stylesheet" href="/views/pages/menu/vendor/bootstrap/css/bootstrap.min.css">
   <!-- Font Awesome CSS-->
@@ -15,7 +17,7 @@
   <!-- Fontastic Custom icon font-->
   <link rel="stylesheet" href="/views/pages/menu/css/fontastic.css">
   <!-- Google fonts - Roboto -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+  <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700"> -->
   <!-- jQuery Circle-->
   <link rel="stylesheet" href="/views/pages/menu/css/grasp_mobile_progress_circle-1.0.0.min.css">
   <!-- Custom Scrollbar-->
@@ -24,15 +26,23 @@
   <link rel="stylesheet" href="/views/pages/menu/css/style.default.css" id="theme-stylesheet">
   <!-- Custom stylesheet - for your changes-->
   <link rel="stylesheet" href="/views/pages/menu/css/custom.css">
+  <!-- Relógio-->
+  <link rel="stylesheet" href="/views/pages/menu/relogio/css/style.css">
   <!-- Favicon-->
   <link rel="shortcut icon" href="/views/pages/menu/img/logo.png">
   <script src="/views/pages/menu/vendor/jquery/jquery.js"></script>
   <script type="text/javascript" src="/views/pages/menu/vendor/jquery/jquery-1.2.6.pack.js"></script>
   <script type="text/javascript" src="/views/pages/menu/vendor/jquery/jquery.maskedinput-1.1.4.pack.js" /></script>
+
+
+
+
+
   <script type="text/javascript">
     var $j = jQuery.noConflict();
     // Use jQuery com a variavel $j para evitar conflitos
     $j(document).ready(function () {
+      $j("#forms").load("/principal").hide().fadeIn(800);
       $j("#data").mask("99/99/9999"); // onde #data é o id do campo
       $j("#cep").mask("99.999-999"); // onde #cep é o id do campo
       $j("#cpf").mask("999.999.999-99"); // onde #cpf é o id do campo
@@ -41,10 +51,39 @@
     });
   </script>
   <script>
+    function debounce(fun, mil) {
+      var timer;
+      return function () {
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+          fun();
+        }, mil);
+      };
+    }
     $(function () {
-      $("#inserir").click(function () {
-        $("#inserir_func").load("/forms");
-        $("#teste").remove();
+
+      $('#adicionar').on('click', debounce(function () {
+        $("#forms").empty();
+        $("#forms").load("/forms").hide().fadeIn(250);
+      }, 250));
+    });
+    $(function () {
+      $("#alterar").on('click', debounce(function () {
+        $("#forms").empty();
+        $("#forms").load("/alterar").hide().fadeIn(250);
+      }, 250));
+    });
+    $(function () {
+      $("#adicionar_todos").on('click', debounce(function () {
+        $("#forms").empty();
+        $("#forms").load("/adicionar_todos").hide().fadeIn(250);
+      }, 250));
+
+    });
+    $(function () {
+      $("#home").one('click', function () {
+        $("#forms").load("/principal").hide().fadeIn(800);
+        $(location).attr({ href: this.href });
       });
     });
   </script>
@@ -79,42 +118,37 @@
         <ul id="side-main-menu" class="side-menu list-unstyled">
           <li>
             <a href="/login" aria-expanded="false">
-              <i class="icon-home"></i>Home </a>
+              <i class="fa fa-home"></i>Home</a>
           </li>
-          <!-- <li><a href="/views/pages/menu/forms"> <i class="icon-form"></i>Forms                             </a></li>
-            <li><a href="/views/pages/menu/charts.html"> <i class="fa fa-bar-chart"></i>Charts                             </a></li>
-            <li><a href="tables.html"> <i class="icon-grid"></i>Tables                             </a></li> -->
           <li>
             <a href="#funcionarios" aria-expanded="false" data-toggle="collapse">
-              <i class="icon-user"></i>Funcionários</a>
+              <i class="fa fa-user" aria-hidden="true"></i> Funcionários</a>
             <ul id="funcionarios" class="collapse list-unstyled ">
               <li>
-                <a href="#inserir" id=inserir>
-                  <i class="icon-user"></i>Inserir</a>
+                <a href="#adicionar" id="adicionar">
+                  <i class="fa fa-user-plus"></i>Adicionar</a>
               </li>
               <li>
-                <a href="#">
-                  <i class="icon-user"></i>Alterar</a>
+                <a href="#alterar" id="alterar">
+                  <i class="fa fa-pencil-square-o"></i>Alterar</a>
               </li>
               <li>
-                <a href="#">
-                  <i class="icon-user"></i>Inserir Todos</a>
+                <a href="#adicionar_todos" id="adicionar_todos">
+                  <i class="fa fa-users"></i>Adicionar Todos</a>
               </li>
             </ul>
           </li>
           <li>
             <a href="#justificativas" aria-expanded="false" data-toggle="collapse">
-              <i class="icon-form"></i>Justificativas</a>
+              <i class="fa fa-calendar-o"></i>Justificativas</a>
             <ul id="justificativas" class="collapse list-unstyled ">
               <li>
                 <a href="#">
-                  <i class="icon-form"></i>
-                  </i>Inserir</a>
+                  <i class="fa fa-calendar-plus-o"></i>Adicionar</a>
               </li>
               <li>
                 <a href="#">
-                  <i class="icon-form"></i>
-                  </i>Alterar</a>
+                  <i class="fa fa-pencil-square-o"></i>Alterar</a>
               </li>
             </ul>
           </li>
@@ -129,11 +163,11 @@
         <ul id="side-admin-menu" class="side-menu list-unstyled">
           <li>
             <a href="#">
-              <i class="icon-user"> </i>Perfil</a>
+              <i class="fa fa-user-circle-o"> </i>Perfil</a>
           </li>
           <li>
             <a href="#">
-              <i class="icon-check"> </i>Autenticação
+              <i class="fa fa-key"> </i>Autenticação
               <div class="badge badge-info">Token</div>
             </a>
           </li>
@@ -149,7 +183,7 @@
           <div class="navbar-holder d-flex align-items-center justify-content-between">
             <div class="navbar-header">
               <a id="toggle-btn" href="#" class="menu-btn">
-                <i class="icon-bars"> </i>
+                <i class="fa fa-bars"> </i>
               </a>
               <a href="/login" class="navbar-brand">
                 <div class="brand-text d-none d-md-inline-block">
@@ -159,64 +193,24 @@
               </a>
             </div>
             <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+              <li class="nav-item">
+                <a href="#" class="nav-link user">
+                  <span class="d-none d-sm-inline-block">
+                    <strong class="text-primary">
+                      <%=message %>
+                    </strong>
+                  </span>
+                  <i class="fa fa-user-circle-o" style="font-size:150%;" aria-hidden="true"></i>  
+                </a>
+              </li>
               <!-- Notifications dropdown-->
               <li class="nav-item dropdown">
                 <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                   class="nav-link">
                   <i class="fa fa-bell"></i>
-                  <span class="badge badge-warning">12</span>
+                  <span class="badge badge-warning">0</span>
                 </a>
                 <ul aria-labelledby="notifications" class="dropdown-menu">
-                  <li>
-                    <a rel="nofollow" href="#" class="dropdown-item">
-                      <div class="notification d-flex justify-content-between">
-                        <div class="notification-content">
-                          <i class="fa fa-envelope"></i>You have 6 new messages </div>
-                        <div class="notification-time">
-                          <small>4 minutes ago</small>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <li>
-                    <a rel="nofollow" href="#" class="dropdown-item">
-                      <div class="notification d-flex justify-content-between">
-                        <div class="notification-content">
-                          <i class="fa fa-twitter"></i>You have 2 followers</div>
-                        <div class="notification-time">
-                          <small>4 minutes ago</small>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <li>
-                    <a rel="nofollow" href="#" class="dropdown-item">
-                      <div class="notification d-flex justify-content-between">
-                        <div class="notification-content">
-                          <i class="fa fa-upload"></i>Server Rebooted</div>
-                        <div class="notification-time">
-                          <small>4 minutes ago</small>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <li>
-                    <a rel="nofollow" href="#" class="dropdown-item">
-                      <div class="notification d-flex justify-content-between">
-                        <div class="notification-content">
-                          <i class="fa fa-twitter"></i>You have 2 followers</div>
-                        <div class="notification-time">
-                          <small>10 minutes ago</small>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <li>
-                    <a rel="nofollow" href="#" class="dropdown-item all-notifications text-center">
-                      <strong>
-                        <i class="fa fa-bell"></i>view all notifications </strong>
-                    </a>
-                  </li>
                 </ul>
               </li>
               <!-- Messages dropdown-->
@@ -227,18 +221,6 @@
                   <span class="badge badge-info">10</span>
                 </a>
                 <ul aria-labelledby="notifications" class="dropdown-menu">
-                  <li>
-                    <a rel="nofollow" href="#" class="dropdown-item d-flex">
-                      <div class="msg-profile">
-                        <img src="/login/img/logo.png" alt="..." class="img-fluid rounded-circle">
-                      </div>
-                      <div class="msg-body">
-                        <h3 class="h5">Jason Doe</h3>
-                        <span>sent you a direct message</span>
-                        <small>3 days ago at 7:58 pm - 10.06.2014</small>
-                      </div>
-                    </a>
-                  </li>
                   <li>
                     <a rel="nofollow" href="#" class="dropdown-item d-flex">
                       <div class="msg-profile">
@@ -273,8 +255,8 @@
               </li>
               <!-- Log out-->
               <li class="nav-item">
-                <a href="login.html" class="nav-link logout">
-                  <span class="d-none d-sm-inline-block">Logout</span>
+                <a href="/logout" class="nav-link logout">
+                  <span class="d-none d-sm-inline-block">Sair</span>
                   <i class="fa fa-sign-out"></i>
                 </a>
               </li>
@@ -284,36 +266,14 @@
       </nav>
     </header>
     <div class="row">
-      <div class="col-sm-10" id=inserir_func>
+      <div class="col-sm-10" id="forms">
       </div>
-    </div>
-    <div id="teste">
-      <section class="dashboard-header section-padding">
-        <div class="container-fluid">
-          <div class="row d-flex align-items-md-stretch">
-            <!-- Pie Chart-->
-            <div class="col-lg-3 col-md-6">
-              <div class="card project-progress">
-                <h2 class="display h4">Progresso do Projeto</h2>
-                <p> Execução do planejamento do Projeto Integração Ponto Gestor.</p>
-                <div class="progress">
-                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="60" aria-valuemin="0"
-                    aria-valuemax="100" style="width: 60%">60%</div>
-                </div>
-                <div class="pie-chart">
-                  <canvas id="pieChart" width="300" height="300"> </canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
     <footer class="main-footer">
       <div class="container-fluid">
         <div class="row">
           <div class="col-sm-6">
-            <p>Publitechs Softwares e Serviços &copy; 2018</p>
+            <p>Publitech Softwares e Serviços &copy; 2018</p>
           </div>
         </div>
       </div>
@@ -325,10 +285,8 @@
   <script src="/views/pages/menu/vendor/bootstrap/js/bootstrap.min.js"></script>
   <script src="/views/pages/menu/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
   </script>
-  <script src="/views/pages/menu/vendor/chart.js/Chart.min.js"></script>
   <script src="/views/pages/menu/vendor/jquery-validation/jquery.validate.min.js"></script>
   <script src="/views/pages/menu/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
-  <script src="/views/pages/menu/js/charts-home.js"></script>
   <!-- Main File-->
   <script src="/views/pages/menu/js/front.js"></script>
 </body>

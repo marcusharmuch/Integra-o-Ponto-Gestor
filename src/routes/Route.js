@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/Controller')
 
+
 router.get('/', controller.get);
-router.post('/novo', controller.post);
-router.put('/:id', controller.put);
+router.post('/', controller.post);
+router.patch('/', controller.patch);
 router.delete('/:id', controller.delete);
 module.exports = router;

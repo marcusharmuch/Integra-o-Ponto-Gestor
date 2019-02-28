@@ -1,6 +1,10 @@
 /**
  * @author <marcus@publitechsistemas.com.br>
  */
+var moment = require('moment');
+var pg = require('pg');
+moment().format();
+const Swal = require('sweetalert2');
 const express = require('express');
 const app = express();
 const router = express.Router();
@@ -17,10 +21,10 @@ app.use(flash());
 require('./auth')(passport);
 app.use(session({
     store: new MongoStore({
-        host: '127.0.0.1',
-        port: '32765',
-        db: 'session',
-        url: 'mongodb://localhost:32765/ponto',
+       host: 'mongodb://marcusharmuch@ds133622.mlab.com:33622/ponto',
+       // port: '33622',
+        //db: 'session',
+        url: 'mongodb://marcusharmuch:cpd4522@ds133622.mlab.com:33622/ponto',
         //db: global.db,
         ttl: 15 * 60 // = 30 minutos de sessão
     }),
@@ -28,9 +32,9 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }))
+moment.locale('pt-BR');
 app.use(passport.initialize());
 app.use(passport.session());
-
 
 
 //Conexao com MongoDb Atlas
@@ -41,11 +45,6 @@ app.use(passport.session());
 //         console.log('Error occurred while connecting to MongoDB Atlas...\n',err);
 //    }
 //    console.log('Conectado do Mongodb Atlas On Line');
-//    const collection = client.db("test").collection("devices");
-//    //collection.insert({"funcionario":{"name":"ETEVALDO ALVES NETO", "cpf":"000.000.000-00"}})
-//    // perform actions on the collection object
-//    client.close();
-// });
 //Rotas
 const index = require('./routes/index');
 const getRoute = require('./routes/Route');
