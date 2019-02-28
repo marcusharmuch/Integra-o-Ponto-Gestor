@@ -37,13 +37,13 @@
             // }),
             // swal.showLoading();
             if (xhr.responseText) {
-
               //swal.close();
               swal({
                 type: 'error',
+                showCloseButton: true,
                 allowOutsideClick: false,
                 title: xhr.responseText,
-                text: 'Algo deu errado! Contate o suporte!',
+                text: 'Algo deu errado! Verifique os erros!',
               })
             }
           },
@@ -85,7 +85,7 @@
         <li class="breadcrumb-item">
           <a href="/login">Home</a>
         </li>
-        <li class="breadcrumb-item active">Inserir </li>
+        <li class="breadcrumb-item active">Adicionar </li>
       </ul>
     </div>
   </div>
@@ -93,13 +93,13 @@
     <div class="container-fluid">
       <!-- Page Header-->
       <header>
-        <h1 class="h3 display">Inserir Funcionário </h1>
+        <h1 class="h3 display">Adicionar Funcionário </h1>
       </header>
       <div class="row">
         <div class="col-lg-6">
           <div class="card">
             <div class="card-header d-flex align-items-center">
-              <h4>Inserir Individual</h4>
+              <h4>Adicionar Individual</h4>
             </div>
             <div class="card-body">
 
@@ -107,13 +107,13 @@
               <form action="/novo" method="POST" ajax="true" id="enviar">
                 <div class="form-group">
 
-                  <input type="text" class="form-control" id="cpf" name="cpf" required placeholder="somente números">
+                  <input type="text" class="form-control" id="cpf" name="cpf" required placeholder="somente números" autofocus="true">
 
                   <!-- <input type="text" id="cpf" placeholder="somente números" class="form-control"> -->
                 </div>
                 <div class="form-group">
 
-                  <input type="submit" value="Inserir" class="btn btn-primary">
+                  <input type="submit" value="Adicionar" class="btn btn-primary">
                 </div>
               </form>
             </div>
