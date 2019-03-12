@@ -63,6 +63,10 @@ router.get('/alterar', authenticationMiddleware(), function (req, res) {
 router.get('/adicionar_todos', authenticationMiddleware(), function (req, res) {
     res.render('../views/pages/menu/adicionar_todos');
 });
+router.get('/adicionar_justificativas', authenticationMiddleware(), function (req, res) {
+    res.render('../views/pages/menu/adicionar_justificativas');
+});
+
 router.get('/principal', authenticationMiddleware(), function (req, res) {
     res.render('../views/pages/menu/principal');
 });
@@ -119,11 +123,35 @@ router.post('/novo', function (req, res, next) {
     // });
 });
 router.post('/adicionar_todos', function (req, res, next) {
-    req = "";
+    /**
+     * define a operação:
+     * 0 = funcionários,
+     * 1 = justificativas
+     */
+    req = 0;
     const controller = require('../controllers/Controller')
     controller.post(req, function (error, result) {
         if (error) {
             res.status(error).send(result);
+        } else {
+            //console.log(result);
+            res.status(201).send(result);
+
+        }
+
+    });
+});
+router.post('/adicionar_justificativas', function (req, res, next) {
+    /**
+     * define a operação:
+     * 0 = funcionários,
+     * 1 = justificativas
+     */
+    req = 1;
+    const controller = require('../controllers/Controller')
+    controller.post(req, function (error, result) {
+        if (error) {
+            res.status(500).send(error);
         } else {
             //console.log(result);
             res.status(201).send(result);

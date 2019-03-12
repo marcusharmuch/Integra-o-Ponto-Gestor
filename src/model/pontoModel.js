@@ -87,7 +87,7 @@ function gravaFuncionario(req, callback) {
      * Obs. Tratar erros de acesso negado. StatusCode
      */
     if (!error && res.statusCode == 401) {
-      console.log(res.statusMessage);
+      console.log(res.statusMessage);globa
       callback("Erro ao conectar-se ao Ponto Gestor!<br> Código de erro: " + res.statusCode + " - " + res.statusMessage, null, null);
       return
     } else if (!error && res.statusCode == 201) {
