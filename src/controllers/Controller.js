@@ -38,12 +38,14 @@ exports.post = (function (req, callback) {
         var url = config_api;
         var request = require('request');
         var headers = { 'Content-type': 'application/json', 'Accept': 'application/json' };
-        request({ url: url, headers: headers, method: 'GET', body: JSON.stringify(paramentros_locais) }, function (error, response, body) {
+        request({ url: url, headers: headers, method: 'GET', body: JSON.stringify(paramentros_locais) }, function (error, response, body) {    
             if (error) {
-                callback(error, null, null);
-                console.log('teste');
+                callback(error, null);                
                 return;
             };
+            if (response.statusCode == 400){
+                callback(body, null);
+            }
             if (response.statusCode == 200) {
                 callback(null, body);
             }
