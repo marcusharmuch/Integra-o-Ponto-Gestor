@@ -4,16 +4,22 @@
 const app = require('../src/app');
 const bodyParser = require('body-parser');
 const port = normalizaPort(process.env.PORT || '3000');
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
 
 require('dotenv-safe').load();
 
-const mongoClient = require("mongodb").MongoClient;
-mongoClient.connect(process.env.MONGO_CONNECTION, function (err, conn) {
+//const mongoClient = require("mongodb").MongoClient;
+mongoose.connect(process.env.MONGO_CONNECTION, {useNewUrlParser:true},function (err, conn) {
     if (err) { return console.log(err); }
     console.log("Conectado ao MongoDB mLab!");
-    global.db = conn.db(process.env.MONGO_DB);
+    //global.db = conn.db(process.env.MONGO_DB);
     //console.log(global.db);
+    mongoose.Promise = global.Promise;
     })
+    
+
     // var mongoose = require('mongoose');
     // var Schema = mongoose.Schema;
     // module.exports.mongoose = mongoose;

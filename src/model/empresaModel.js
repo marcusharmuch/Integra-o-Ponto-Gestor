@@ -1,17 +1,19 @@
-import { Schema, Types } from "mongoose";
-import { EnderecoSchema } from "./enderecoModel";
-import { ContatoSchema } from "./contatoModel";
+var mongoose = require('mongoose');
+EnderecoSchema = require('../model/enderecoModel');
+ContatoSchema = require('../model/contatoModel');
 
-export const EmpresaSchema = new Schema({
-    uid: Types.ObjectId,
+var Schema = mongoose.Schema;
+
+const EmpresaSchema = new Schema({
+    uid: String,
     name: String,
     nome_fantasia: String,
     cnpj: String,
     cei: String,
     cpf: String,
     inscricao_estadual: String,
-    address: { type: EnderecoSchema },
-    contact: { type: ContatoSchema },
+    address: EnderecoSchema ,
+    contact: ContatoSchema ,
     codigo_registro_folha: String,
     ativo: Boolean
 });

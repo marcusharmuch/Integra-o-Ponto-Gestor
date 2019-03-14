@@ -29,21 +29,49 @@ exports.post = (function (req, callback) {
     var config_mongo = global.mongo_local;
     var config_api = global.url_api;
     var config_token = global.token;
-
+    var config_gestor = global.config_gestor;
 
     if (req == 1) {
+        /**
+         * Replicação dos funcionários do ponto gestor para mongodb em nuvem
+         */
+        var request = require('request'), default_headers, url = config_gestor + 'v1/funcionarios/';
+        default_headers = { 'X-Auth-Token': config_token, 'Content-type': 'application/json', 'Accept': 'application/json' };
+        request({
+            url: url,
+            headers: default_headers,
+            method: 'GET',
+        }, function (error, res, body) {
+            if (error) {
+                console.log("Ocorreu um erro ao comunicar-se com o Ponto Gestor!" + error);
+                callback("Ocorreu um erro ao comunicar-se com o Ponto Gestor!" + error, null);
+            }
+            if (!error && res.statusCode == 401) {
+                console.log("Erro ao conectar-se ao Ponto Gestor:" + res.statusMessage);
+                callback("Erro ao conectar-se ao Ponto Gestor:" + res.statusMessage, null, null);
+            } else if (!error && res.statusCode == 200) {
+                console.log("Resultado da consulta:" + res.statusCode);
+                console.log(body);
+                //parametros2 = JSON.parse(body);
+            } else {
+                console.log("Algo deu errado. Contate o suporte" + res.statusMessage);
+                callback("Algo deu errado. Contate o suporte" + res.statusMessage, null, null);
+            }
+        });
+        //teste
+        return;
         var paramentros_locais = { config_aise, config_mongo, config_token };
 
         var request = require('request');
         var url = config_api;
         var request = require('request');
         var headers = { 'Content-type': 'application/json', 'Accept': 'application/json' };
-        request({ url: url, headers: headers, method: 'GET', body: JSON.stringify(paramentros_locais) }, function (error, response, body) {    
+        request({ url: url, headers: headers, method: 'GET', body: JSON.stringify(paramentros_locais) }, function (error, response, body) {
             if (error) {
-                callback(error, null);                
+                callback(error, null);
                 return;
             };
-            if (response.statusCode == 400){
+            if (response.statusCode == 400) {
                 callback(body, null);
             }
             if (response.statusCode == 200) {

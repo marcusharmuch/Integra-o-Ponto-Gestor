@@ -24,7 +24,7 @@ app.use(session({
        host: 'mongodb://marcusharmuch@ds133622.mlab.com:33622/ponto',
        // port: '33622',
         //db: 'session',
-        url: 'mongodb://marcusharmuch:cpd4522@ds133622.mlab.com:33622/ponto',
+        url: 'mongodb://marcusharmuch:cpd4522@ds133622.mlab.com:33622/ponto', 
         //db: global.db,
         ttl: 15 * 60 // = 30 minutos de sessão
     }),

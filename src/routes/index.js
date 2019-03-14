@@ -160,6 +160,31 @@ router.post('/adicionar_justificativas', function (req, res, next) {
 
     });
 });
+router.route('/mongo').post(function (req, res) {
+    Funcionario = require('../model/funcionarioModel');
+    //db = require('../db');
+    //var mongoose = require('mongoose');
+    //mongoose.set('useFindAndModify', false)
+    
+    var async = require('async');
+    var lista = req.body;
+    async.eachSeries(lista, function upsert(obj,done){
+        Funcionario.findOneAndUpdate({uid:obj.uid}, obj,{upsert:true, new:true},done);
+    },function allDone(err){
+        if (err) return res.json(err);
+        res.json("Gravado com sucesso");
+    });
+
+    // Funcionario.collection.insertMany(lista, {upsert:true}, function (error) {
+    //     if (error) {
+    //         res.send('Erro de gravar no mongo mlab' + error);
+    //     } else {
+    //         res.json({ message: 'Gravado com sucesso' });
+
+    //     }
+    // });
+
+});
 router.patch('/alterar', function (req, res, next) {
     var cpf = req.body.cpf.replace(/\D+/g, '');
     req.cpf = cpf;

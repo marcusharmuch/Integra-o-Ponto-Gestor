@@ -1,31 +1,33 @@
-import { Schema } from "mongoose";
+var mongoose = require('mongoose');
 
-export const QuadroHorasSchema = new Schema({
+var Schema = mongoose.Schema;
+
+const QuadroHorasSchema = new Schema({
 
     hora_virada: Date,
     name: String,
     tipo: String,
     use_holiday: Boolean,
-    folgas_especiais: Integer,
+    folgas_especiais: Number,
     ativo: Boolean,
     ch: Boolean,
     marcacao_automatica_intervalo: Boolean,
     tolerancia: {
         tolerancia_fixa: Boolean,
-        tolerancia_fixa_entrada: Integer,
-        tolerancia_fixa_saida: Integer,
-        tolerancia_global_extra: Integer,
-        tolerancia_global_falta: Integer
+        tolerancia_fixa_entrada: Number,
+        tolerancia_fixa_saida: Number,
+        tolerancia_global_extra: Number,
+        tolerancia_global_falta: Number
     },
     horario: {
         escalas: [
             {
                 tipo: String,
                 hora_virada: Date,
-                ordem: Integer
+                ordem: Number
             }
         ]
     },
-    intervalo: Integer
+    intervalo: Number
 
 });

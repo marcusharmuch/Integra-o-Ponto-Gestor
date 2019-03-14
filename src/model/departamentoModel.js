@@ -1,8 +1,10 @@
-import { Schema, Types } from "mongoose";
-import { EmpresaSchema } from "./empresaModel";
+var mongoose = require('mongoose');
+EmpresaSchema = require ('../model/empresaModel');
 
-export const DepartamentoSchema = new Schema({
-    uid: Types.ObjectId,
+var Schema = mongoose.Schema;
+
+const DepartamentoSchema = new Schema({
+    uid: String,
     name: String,
     empresa: { type: EmpresaSchema },
     ativo: Boolean

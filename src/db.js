@@ -23,4 +23,6 @@ function connect() {
         return
         }
     })
+    mongoose.Promise = global.Promise;
+
 }

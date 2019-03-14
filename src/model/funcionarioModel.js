@@ -1,12 +1,16 @@
-import { model, Schema, Types } from "mongoose";
-import { DepartamentoSchema } from "./departamentoModel";
-import { EmpresaSchema } from "./empresaModel";
-import { FuncionarioQuadroHorasSchema } from "./funcionarioQuadroHorasModel";
+var mongoose = require('mongoose');
+DepartamentoSchema = require ('../model/departamentoModel');
+EmpresaSchema = require ('../model/empresaModel');
+FuncionarioQuadroHorasSchema = require ('../model/funcionarioQuadroHorasModel');
+
+mongoose.set('useCreateIndex', true)
+
+var Schema = mongoose.Schema;
 
 const FuncionarioSchema = new Schema({
-    uid: Types.ObjectId,
+    uid: {type: String, index: true, unique:true},
     cpf: { type: String, index: true, unique: true },
-    cracha: String,
+    cracha: Number,
     data_admissao: Date,
     data_demissao: Date,
     name: String,
@@ -30,7 +34,7 @@ const FuncionarioSchema = new Schema({
     last_quadro_de_horas: FuncionarioQuadroHorasSchema
 });
 
-export const FuncionarioModel = model('Funcionario', FuncionarioSchema);
+module.exports = mongoose.model('Funcionario', FuncionarioSchema);
 
 /**
  * Para fazer o update ou inclusão de um funcionário pode ser fazer da seguinte forma:

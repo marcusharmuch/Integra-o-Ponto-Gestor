@@ -1,6 +1,8 @@
-import { Schema } from "mongoose";
+var mongoose = require('mongoose');
 
-export const ContatoSchema =  Schema({
+var Schema = mongoose.Schema;
+
+var ContatoSchema = new Schema({
     email: String,
     name: String,
     phone: String,

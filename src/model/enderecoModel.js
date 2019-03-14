@@ -1,6 +1,8 @@
-import { Schema } from "mongoose";
+var mongoose = require('mongoose');
 
-export const EnderecoSchema = new Schema({
+var Schema = mongoose.Schema;
+
+const EnderecoSchema = new Schema({
     cep: String,
     city: String,
     complement: String,
