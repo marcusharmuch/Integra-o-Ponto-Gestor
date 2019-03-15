@@ -9,7 +9,7 @@ var Schema = mongoose.Schema;
 
 const FuncionarioSchema = new Schema({
     uid: {type: String, index: true, unique:true},
-    cpf: { type: String, index: true, unique: true },
+    cpf: { type: String, index: true},
     cracha: Number,
     data_admissao: Date,
     data_demissao: Date,
