@@ -51,6 +51,8 @@ router.get('/login', authenticationMiddleware(), function (req, res) {
     console.log(global.url_api);
     global.url_gestor = req.user.config.api_gestor;
     console.log(global.url_gestor);
+    global.entidade = req.user.nome;
+    console.log(global.entidade);
 
     res.render('../views/pages/menu/index', { message: global.usuario });
 });
@@ -161,28 +163,16 @@ router.post('/adicionar_justificativas', function (req, res, next) {
     });
 });
 router.route('/mongo').post(function (req, res) {
-    Funcionario = require('../model/funcionarioModel');
-    //db = require('../db');
-    //var mongoose = require('mongoose');
-    //mongoose.set('useFindAndModify', false)
-    
-    var async = require('async');
-    var lista = req.body;
-    async.eachSeries(lista, function upsert(obj,done){
-        Funcionario.findOneAndUpdate({uid:obj.uid}, obj,{upsert:true, new:true},done);
-    },function allDone(err){
-        if (err) return res.json(err);
-        res.json("Gravado com sucesso");
+
+    PontoModel = require('../model/pontoModel.js');
+    PontoModel.replicacao_mongo(req, function (error, result) {
+        if (error) {
+            res.status(400).send(error);
+            return;
+        } else {
+            res.status(200).send(result);
+        }
     });
-
-    // Funcionario.collection.insertMany(lista, {upsert:true}, function (error) {
-    //     if (error) {
-    //         res.send('Erro de gravar no mongo mlab' + error);
-    //     } else {
-    //         res.json({ message: 'Gravado com sucesso' });
-
-    //     }
-    // });
 
 });
 router.patch('/alterar', function (req, res, next) {

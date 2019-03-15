@@ -34,7 +34,7 @@ const FuncionarioSchema = new Schema({
     last_quadro_de_horas: FuncionarioQuadroHorasSchema
 });
 
-module.exports = mongoose.model('Funcionario', FuncionarioSchema);
+module.exports = mongoose.model(global.entidade, FuncionarioSchema);
 
 /**
  * Para fazer o update ou inclusão de um funcionário pode ser fazer da seguinte forma:

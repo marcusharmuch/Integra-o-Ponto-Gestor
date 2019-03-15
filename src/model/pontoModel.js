@@ -6,12 +6,31 @@ module.exports.consultaAise = consultaAise;
 module.exports.criaRequisicao = criaRequisicao;
 module.exports.gravaFuncionario = gravaFuncionario;
 module.exports.consultaFuncionario = consultaFuncionario;
+module.exports.replicacao_mongo = replicacao_mongo;
 /**
  * 
  * @param {*} req (requisiçao para consulta, traz tb a configuração do aise)
  * @param {*} callback (retorno:error,result)
  */
-
+function replicacao_mongo(req,callback){
+  Funcionario = require('../model/funcionarioModel');
+    //db = require('../db');
+    //var mongoose = require('mongoose');
+    //mongoose.set('useFindAndModify', false)
+    
+    var async = require('async');
+    var lista = JSON.parse(req);
+    async.eachSeries(lista, function upsert(obj,done){
+        Funcionario.findOneAndUpdate({uid:obj.uid}, obj,{upsert:true, new:true},done);
+    },function allDone(err){
+        if (err) {
+          callback(err,null);
+        }else{
+          callback(null,"Inserido/atualizado");
+        }
+        
+    });
+  };
 function consultaAise(req, callback) {
 
   /**

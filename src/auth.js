@@ -1,20 +1,19 @@
 const bcryptjs = require('bcryptjs')
 const LocalStrategy = require('passport-local').Strategy
-
+const mongoose = require('mongoose');
 module.exports = function (passport) {
 
     function findUser(username, callback) {
-        global.db.collection("entidade").findOne({ usuarios: { $elemMatch: { username: username } } }, function (err, result) {
-        //var query = {usuarios:{$elemMatch:{username:username}}}; 
-        //global.db.collection("entidade").find(query).toArray(function (err, result) {
-            //global.db.collection("entidade").find({"usuarios.username":{$eq:username}},{"usuarios.$":1}).toArray(function (err, result) {
+        
+        mongoose.connection.collection("entidade").findOne({ usuarios: { $elemMatch: { username: username } } }, function (err, result) {
             callback(err, result);
         });
     }
 
     function findUserById(id, callback) {
         const ObjectId = require("mongodb").ObjectId;
-        global.db.collection("entidade").findOne({ _id: ObjectId(id) }, (err, result) => {
+        
+        mongoose.connection.collection("entidade").findOne({ _id: ObjectId(id) }, (err, result) => {
             callback(err, result);
         });
     }

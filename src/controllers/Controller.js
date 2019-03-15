@@ -29,13 +29,13 @@ exports.post = (function (req, callback) {
     var config_mongo = global.mongo_local;
     var config_api = global.url_api;
     var config_token = global.token;
-    var config_gestor = global.config_gestor;
+    var config_gestor = global.url_gestor;
 
     if (req == 1) {
         /**
          * Replicação dos funcionários do ponto gestor para mongodb em nuvem
          */
-        var request = require('request'), default_headers, url = config_gestor + 'v1/funcionarios/';
+        var request = require('request'), default_headers, url = config_gestor + '/v1/funcionarios/';
         default_headers = { 'X-Auth-Token': config_token, 'Content-type': 'application/json', 'Accept': 'application/json' };
         request({
             url: url,
@@ -50,20 +50,25 @@ exports.post = (function (req, callback) {
                 console.log("Erro ao conectar-se ao Ponto Gestor:" + res.statusMessage);
                 callback("Erro ao conectar-se ao Ponto Gestor:" + res.statusMessage, null, null);
             } else if (!error && res.statusCode == 200) {
-                console.log("Resultado da consulta:" + res.statusCode);
-                console.log(body);
-                //parametros2 = JSON.parse(body);
+                PontoModel = require('../model/pontoModel.js');
+                PontoModel.replicacao_mongo(body, function (error, result) {
+                    if (error) {
+                        callback(error, null);
+                    };
+                });
             } else {
                 console.log("Algo deu errado. Contate o suporte" + res.statusMessage);
                 callback("Algo deu errado. Contate o suporte" + res.statusMessage, null, null);
             }
         });
-        //teste
-        return;
-        var paramentros_locais = { config_aise, config_mongo, config_token };
+        /**
+         * inserção de Justificativas. Conecta com a apiaise local da entidade, faz os scripts e retorna
+         * com os dados (erro, status de inserção)
+         */
+        var paramentros_locais = { config_aise, config_mongo, config_token, config_gestor };
 
         var request = require('request');
-        var url = config_api;
+        var url = config_api + '/justificativas';
         var request = require('request');
         var headers = { 'Content-type': 'application/json', 'Accept': 'application/json' };
         request({ url: url, headers: headers, method: 'GET', body: JSON.stringify(paramentros_locais) }, function (error, response, body) {
@@ -110,7 +115,7 @@ exports.post = (function (req, callback) {
          */
         //cpf: 562.107.289-87
         var request = require('request');
-        var url = global.url_api;
+        var url = global.url_api + '/funcionarios';
         var headers = { 'Content-type': 'application/json', 'Accept': 'application/json' };
         request({ url: url, headers: headers, method: 'GET', body: JSON.stringify(config_local) }, function (error, response, body) {
             if (error) {
@@ -145,17 +150,17 @@ exports.post = (function (req, callback) {
                                     errosTela.push("Erros foram encontrados. Funcionários não gravados: <br> <br>");
                                     //var listaerros = ("Erros foram encontrados. Os dados abaixo não foram gravados no Ponto Gestor:<br><br>" + error.funcionario);        
                                     //Teste para gravação de erros, enviando lista de erros
-                                    PontoModel.gravaPontodb(listaerros, function (error, result) {
-                                        if (error) {
-                                            console.log('Problema ao gravar no Mongodb. Verifique!', error);
-                                            return
-                                            //callback(error, null);
-                                        } else {
-                                            console.log("Gravado com Sucesso no MongoDB ");
-                                            return
-                                            //res.send("Gravado com Sucesso");
-                                        }
-                                    })
+                                    // PontoModel.gravaPontodb(listaerros, function (error, result) {
+                                    //     if (error) {
+                                    //         console.log('Problema ao gravar no Mongodb. Verifique!', error);
+                                    //         return
+                                    //         //callback(error, null);
+                                    //     } else {
+                                    //         console.log("Gravado com Sucesso no MongoDB ");
+                                    //         return
+                                    //         //res.send("Gravado com Sucesso");
+                                    //     }
+                                    // })
                                     for (let i = 0; i < error.length; i++) {
                                         errosTela.push(listaerros[i].funcionario.name, JSON.stringify(listaerros[i].funcionario.erro), "<br><br>");
                                     }
