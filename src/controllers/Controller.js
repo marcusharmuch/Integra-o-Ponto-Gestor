@@ -122,7 +122,7 @@ exports.post = (function (req, callback) {
                 callback(500, "Erro ao conectar na aplicação local");
                 console.log(error);
                 return;
-            } else if (!error && response.statusCode == 500) {//conectou ao postgres pela api do servidor, mas retornou consulta em branco
+            } else if (!error && response.statusCode >=400 ) {//conectou ao postgres pela api do servidor, mas retornou consulta em branco
                 callback(response.statusCode, response.body);
                 return;
             } else if (!error && response.statusCode == 200) {//conectou ao postgres pela api do servidor com OK na consulta

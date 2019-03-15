@@ -60,7 +60,7 @@ function consultaAise(req, callback) {
     } else {
       console.log("criou a requisicao para o aise");
       callback(null, sql);
-      return;
+      //return;
       // const query = client.query(sql, function (error, result) {
       //   if (error) {
       //     console.error('error running query', error);
