@@ -31,11 +31,13 @@ exports.post = (function (req, callback) {
     var config_token = global.token;
     var config_gestor = global.url_gestor;
 
+    //req 1 = inserindo justificativas
     if (req == 1) {
+
         /**
          * Replicação dos funcionários do ponto gestor para mongodb em nuvem
          */
-        var request = require('request'), default_headers, url = config_gestor + '/v1/funcionarios/';
+        var request = require('request'), default_headers, url = config_gestor + '/v1/funcionarios?include_last_quadro_de_horas=1';
         default_headers = { 'X-Auth-Token': config_token, 'Content-type': 'application/json', 'Accept': 'application/json' };
         request({
             url: url,
@@ -55,32 +57,33 @@ exports.post = (function (req, callback) {
                     if (error) {
                         callback(error, null);
                     };
+                    console.log('Replicação realizada com sucesso');
+                    /**
+                    * inserção de Justificativas. Conecta com a apiaise local da entidade, faz os scripts e retorna
+                    * com os dados (erro, status de inserção)
+                    */
+                    var paramentros_locais = { config_aise, config_mongo, config_token, config_gestor };
+
+                    var request = require('request');
+                    var url = config_api + '/justificativas';
+                    var request = require('request');
+                    var headers = { 'Content-type': 'application/json', 'Accept': 'application/json' };
+                    request({ url: url, headers: headers, method: 'GET', body: JSON.stringify(paramentros_locais) }, function (error, response, body) {
+                        if (error) {
+                            callback(error, null);
+                            return;
+                        };
+                        if (response.statusCode == 400) {
+                            callback(body, null);
+                        }
+                        if (response.statusCode == 200) {
+                            callback(null, body);
+                        }
+                    });
                 });
             } else {
                 console.log("Algo deu errado. Contate o suporte" + res.statusMessage);
                 callback("Algo deu errado. Contate o suporte" + res.statusMessage, null, null);
-            }
-        });
-        /**
-         * inserção de Justificativas. Conecta com a apiaise local da entidade, faz os scripts e retorna
-         * com os dados (erro, status de inserção)
-         */
-        var paramentros_locais = { config_aise, config_mongo, config_token, config_gestor };
-
-        var request = require('request');
-        var url = config_api + '/justificativas';
-        var request = require('request');
-        var headers = { 'Content-type': 'application/json', 'Accept': 'application/json' };
-        request({ url: url, headers: headers, method: 'GET', body: JSON.stringify(paramentros_locais) }, function (error, response, body) {
-            if (error) {
-                callback(error, null);
-                return;
-            };
-            if (response.statusCode == 400) {
-                callback(body, null);
-            }
-            if (response.statusCode == 200) {
-                callback(null, body);
             }
         });
     } else {
@@ -89,7 +92,7 @@ exports.post = (function (req, callback) {
          */
         PontoModel = require('../model/pontoModel.js');
         //console.log(req.body);
-        if (req) {
+        if (req.cpf) {
             var cpf = req.body.cpf.replace(/\D+/g, '');
         } else {
             var cpf = '';
@@ -122,8 +125,8 @@ exports.post = (function (req, callback) {
                 callback(500, "Erro ao conectar na aplicação local");
                 console.log(error);
                 return;
-            } else if (!error && response.statusCode >=400 ) {//conectou ao postgres pela api do servidor, mas retornou consulta em branco
-                callback(response.statusCode, response.body);
+            } else if (!error && response.statusCode >= 400) {//conectou ao postgres pela api do servidor, mas retornou consulta em branco
+                callback(response.statusCode, body);
                 return;
             } else if (!error && response.statusCode == 200) {//conectou ao postgres pela api do servidor com OK na consulta
                 req = JSON.parse(response.body);
@@ -164,6 +167,7 @@ exports.post = (function (req, callback) {
                                     for (let i = 0; i < error.length; i++) {
                                         errosTela.push(listaerros[i].funcionario.name, JSON.stringify(listaerros[i].funcionario.erro), "<br><br>");
                                     }
+                                    console.log(errosTela);
                                 }
                                 if (result.length != 0) {
                                     var listagravados = result;
@@ -210,7 +214,7 @@ exports.post = (function (req, callback) {
 
     };
 
-    return;
+    //return;
 
     //     var request = require('request'), default_headers, url = 'http://localhost:3100/';
     //     default_headers = {'Content-type': 'application/json', 'Accept': 'application/json' };

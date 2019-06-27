@@ -12,25 +12,25 @@ module.exports.replicacao_mongo = replicacao_mongo;
  * @param {*} req (requisiçao para consulta, traz tb a configuração do aise)
  * @param {*} callback (retorno:error,result)
  */
-function replicacao_mongo(req,callback){
+function replicacao_mongo(req, callback) {
   Funcionario = require('../model/funcionarioModel');
-    //db = require('../db');
-    //var mongoose = require('mongoose');
-    //mongoose.set('useFindAndModify', false)
-    
-    var async = require('async');
-    var lista = JSON.parse(req);
-    async.eachSeries(lista, function upsert(obj,done){
-        Funcionario.findOneAndUpdate({uid:obj.uid}, obj,{upsert:true, new:true},done);
-    },function allDone(err){
-        if (err) {
-          callback(err,null);
-        }else{
-          callback(null,"Inserido/atualizado");
-        }
-        
-    });
-  };
+  //db = require('../db');
+  //var mongoose = require('mongoose');
+  //mongoose.set('useFindAndModify', false)
+
+  var async = require('async');
+  var lista = JSON.parse(req);
+  async.eachSeries(lista, function upsert(obj, done) {
+    Funcionario.findOneAndUpdate({ uid: obj.uid }, obj, { upsert: true, new: true }, done);
+  }, function allDone(err) {
+    if (err) {
+      callback(err, null);
+    } else {
+      callback(null, "Inserido/atualizado");
+    }
+
+  });
+};
 function consultaAise(req, callback) {
 
   /**
@@ -46,7 +46,7 @@ function consultaAise(req, callback) {
   //     if (error) {
   //       console.log('Problema ao conectar ao Postgres. Verifique!', error);
   //       callback('Problema ao conectar ao Postgres!' + error, null);
-  //       return
+  //       return 
   //     } else {
   //       console.log('Conectado ao Postgres');
   //     }
@@ -56,6 +56,7 @@ function consultaAise(req, callback) {
   consulta_sql.requisicao_aise(req, function (error, sql) {
     if (error) {
       callback(error, null);
+      console.log('erro aki');
       return;
     } else {
       console.log("criou a requisicao para o aise");
@@ -86,6 +87,7 @@ function criaRequisicao(req, callback) {
     } else {
       //console.log(result);
       callback(null, result);
+
     }
   });
 }
@@ -106,7 +108,7 @@ function gravaFuncionario(req, callback) {
      * Obs. Tratar erros de acesso negado. StatusCode
      */
     if (!error && res.statusCode == 401) {
-      console.log(res.statusMessage);globa
+      console.log(res.statusMessage); globa
       callback("Erro ao conectar-se ao Ponto Gestor!<br> Código de erro: " + res.statusCode + " - " + res.statusMessage, null, null);
       return
     } else if (!error && res.statusCode == 201) {
@@ -154,63 +156,66 @@ function consultaFuncionario(req, callback) {
   });
 };
 function gravaPontodb(req, callback) {
-  var db = require('../db');
-  var PontoSchema = new db.Schema({
-    tipo: String,
-    funcionario: String,
-    pis: String,
-    requisicao: JSON,
-    data: String
-  })
-  /**
-   * "teste" deve ser substituído pelo usuário que fez a solicitação
-   */
-  var Ponto = db.mongoose.models.teste || db.mongoose.model('teste', PontoSchema);
-  var instance = new Ponto();
-  /**
-   * Converter a data e horario sem fuso horário para o horario local. (npm install moment)
-   */
-  var moment = require('moment');
-  var date = moment.utc().format('YYYY-MM-DD HH:mm:ss');
-  var stillUtc = moment.utc(date).toDate();
-  var local = moment(stillUtc).local().format('YYYY-MM-DD HH:mm:ss');
-  if (req.length == 1) {
-    instance.tipo = "Individual";
-    instance.funcionario = req[0].funcionario.name;
-    instance.pis = req[0].funcionario.pis;
-    instance.requisicao = req[0];
-    instance.data = local;
-    instance.save(function (error) {
-      if (error) {
-        callback(error);
-      } else {
-        callback(null, instance);
-      }
-    });
-  } else {
-    var listanomes = new Array();
-    var listaNaoGravados = new Array();
-    for (i = 0; i < req.length; i++) {
-      var name = req[i].funcionario.name;
-      if (req[i].funcionario.erro) {
-        var erro = req[i].funcionario.erro;
-        listaNaoGravados.push(name + erro);
-      } else {
-        listanomes.push(name);
-      }
-    }
-    instance.tipo = "Geral";
-    instance.funcionario = listanomes;
-    instance.erro = listaNaoGravados;
-    instance.requisicao = req;
-    instance.data = local;
-    instance.save(function (error) {
-      if (error) {
-        callback(error);
-      } else {
-        callback(null, instance);
-      }
-    });
-  }
+  console.log('Foi para gravar no mongo Local. Ver isso na apiaise');
+
+  // var db = require('../db');
+  // var PontoSchema = new db.Schema({
+  //   tipo: String,
+  //   funcionario: String,
+  //   pis: String,
+  //   requisicao: JSON,
+  //   data: String
+  // })
+  // /**
+  //  * "teste" deve ser substituído pelo usuário que fez a solicitação
+  //  */
+  // var usuario = global.usuario;
+  // var Ponto = db.mongoose.models.teste || db.mongoose.model('teste', PontoSchema);
+  // var instance = new Ponto();
+  // /**
+  //  * Converter a data e horario sem fuso horário para o horario local. (npm install moment)
+  //  */
+  // var moment = require('moment');
+  // var date = moment.utc().format('YYYY-MM-DD HH:mm:ss');
+  // var stillUtc = moment.utc(date).toDate();
+  // var local = moment(stillUtc).local().format('YYYY-MM-DD HH:mm:ss');
+  // if (req.length == 1) {
+  //   instance.tipo = "Individual";
+  //   instance.funcionario = req[0].funcionario.name;
+  //   instance.pis = req[0].funcionario.pis;
+  //   instance.requisicao = req[0];
+  //   instance.data = local;
+  //   instance.save(function (error) {
+  //     if (error) {
+  //       callback(error);
+  //     } else {
+  //       callback(null, instance);
+  //     }
+  //   });
+  // } else {
+  //   var listanomes = new Array();
+  //   var listaNaoGravados = new Array();
+  //   for (i = 0; i < req.length; i++) {
+  //     var name = req[i].funcionario.name;
+  //     if (req[i].funcionario.erro) {
+  //       var erro = req[i].funcionario.erro;
+  //       listaNaoGravados.push(name + erro);
+  //     } else {
+  //       listanomes.push(name);
+  //     }
+  //   }
+  //   instance.tipo = "Geral";
+  //   instance.funcionario = listanomes;
+  //   instance.erro = listaNaoGravados;
+  //   instance.requisicao = req;
+  //   instance.data = local;
+  //   instance.save(function (error) {
+  //     if (error) {
+  //       callback(error);
+  //     } else {
+  //       callback(null, instance);
+  //     }
+  //   });
+  // }
 
 }
